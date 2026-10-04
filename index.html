@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LetsGal Studio · 让想象被看见</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="bg-image" id="bgImage"></div>
+  <div class="bg-glow"><span></span><span></span><span></span><span></span></div>
+
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="logo">
+        <span class="logo-mark">L</span>
+        <span>LetsGal</span>
+      </a>
+
+      <div class="nav-collapse" id="navCollapse">
+        <nav class="nav-links">
+          <a href="#home" class="nav-link active">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </span>
+            <span class="nav-text">首页</span>
+          </a>
+
+          <a href="#team" class="nav-link">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </span>
+            <span class="nav-text">团队</span>
+          </a>
+
+          <a href="#games" class="nav-link">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.5 6h-11A4.5 4.5 0 0 0 2 10.5v3A4.5 4.5 0 0 0 6.5 18h11a4.5 4.5 0 0 0 4.5-4.5v-3A4.5 4.5 0 0 0 17.5 6z"/>
+                <path d="M6 12h4M8 10v4"/>
+                <circle cx="15.5" cy="11.5" r="1"/>
+                <circle cx="18" cy="14" r="1"/>
+              </svg>
+            </span>
+            <span class="nav-text">作品</span>
+          </a>
+
+          <a href="#engine" class="nav-link">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </span>
+            <span class="nav-text">引擎</span>
+          </a>
+
+          <a href="#contact" class="nav-link">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <span class="nav-text">加入</span>
+          </a>
+        </nav>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <span class="theme-label">切换主题</span>
+        </button>
+
+        <a href="#games" class="btn-cta">查看作品</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          九人小团队 · 正在创造 Galgame 的未来
+        </div>
+        <h1>让想象<span class="grad">被看见</span><br>做属于我们的恋爱游戏</h1>
+        <p>test</p>
+        <div class="hero-actions">
+          <a href="#team" class="btn btn-primary">认识我们 →</a>
+          <a href="#games" class="btn btn-ghost">看看作品</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="stats">
+      <div class="container">
+        <div class="stats">
+          <div class="stat reveal">
+            <span class="num">9</span>
+            <span class="label">核心成员</span>
+          </div>
+          <div class="stat reveal" style="transition-delay:.08s">
+            <span class="num">test</span>
+            <span class="label">test</span>
+          </div>
+          <div class="stat reveal" style="transition-delay:.16s">
+            <span class="num">test</span>
+            <span class="label">test</span>
+          </div>
+          <div class="stat reveal" style="transition-delay:.24s">
+            <span class="num">test</span>
+            <span class="label">test</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>九个人的故事</h2>
+          <p>每个人都是不可或缺的一块拼图。</p>
+        </div>
+
+        <div class="grid">
+          <div class="member-card reveal">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">制作人</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal" style="transition-delay:.06s">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">技术负责人</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal" style="transition-delay:.12s">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">剧本 / 叙事设计</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">角色设计 / 作画</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal" style="transition-delay:.06s">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">音频制作</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal" style="transition-delay:.12s">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">技术美术 (TA)</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">项目管理</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal" style="transition-delay:.06s">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">UI / UX 设计</span>
+            <p>test</p>
+          </div>
+
+          <div class="member-card reveal" style="transition-delay:.12s">
+            <div class="member-avatar">U</div>
+            <h3>unknow</h3>
+            <span class="member-role">游戏逻辑开发</span>
+            <p>test</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>我们的作品</h2>
+          <p>test</p>
+        </div>
+
+        <div class="game-card reveal">
+          <div class="game-header">
+            <div class="game-cover">恋</div>
+            <div class="game-title">
+              <h3>test</h3>
+              <div class="game-tags">
+                <span class="game-tag">test</span>
+                <span class="game-tag">test</span>
+                <span class="game-tag">test</span>
+              </div>
+            </div>
+          </div>
+          <p>test</p>
+          <p>test</p>
+          <div class="game-highlight">
+            <span class="highlight-item">test</span>
+            <span class="highlight-item">test</span>
+            <span class="highlight-item">test</span>
+            <span class="highlight-item">test</span>
+          </div>
+        </div>
+
+        <div class="game-card reveal" style="transition-delay:.08s">
+          <div class="game-header">
+            <div class="game-cover">角</div>
+            <div class="game-title">
+              <h3>test</h3>
+              <div class="game-tags">
+                <span class="game-tag">test</span>
+                <span class="game-tag">test</span>
+              </div>
+            </div>
+          </div>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p>test</p>
+          <p class="game-note">test</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="engine" class="tech-section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>我们使用的创作引擎</h2>
+          <p>
+            游戏开发基于第三方的 AVG / Galgame 创作引擎——
+            <a href="https://avg-engine.com" target="_blank" rel="noopener" class="inline-link">avg-engine.com</a>。
+            它让「写作就是创作」成为可能，我们只需专注讲好故事。
+          </p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </div>
+            <h3>可视化剧本编辑</h3>
+            <p>用 Block 编写对白、选项与条件，无需编程基础。敲下每一个字，即刻出现在预览画面里——没有编译，没有中间态。</p>
+          </div>
+
+          <div class="tech-card reveal" style="transition-delay:.08s">
+            <div class="tech-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                <polyline points="2 17 12 22 22 17"/>
+                <polyline points="2 12 12 17 22 12"/>
+              </svg>
+            </div>
+            <h3>角色与演出系统</h3>
+            <p>支持 Spine、Live2D、序列帧与差分立绘，内置网格动画编辑器。可调整镜头、滤镜与过渡动画，配置替换后所有剧本引用自动同步。</p>
+          </div>
+
+          <div class="tech-card reveal" style="transition-delay:.16s">
+            <div class="tech-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="6" y1="3" x2="6" y2="15"/>
+                <circle cx="18" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <path d="M18 9a9 9 0 0 1-9 9"/>
+              </svg>
+            </div>
+            <h3>叙事地图与蓝图</h3>
+            <p>用叙事地图一眼看清章节、分支与片段的关系；蓝图设计模式则通过可视化节点组织剧情流程，让复杂故事结构不再混乱。</p>
+          </div>
+
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <h3>实时预览与调试</h3>
+            <p>实时预览当前画面，通过时间轴、变量观测和快照检查剧情走向。支持 OP 时间轴跳转与属性检查，调试效率大幅提升。</p>
+          </div>
+
+          <div class="tech-card reveal" style="transition-delay:.08s">
+            <div class="tech-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <h3>扩展与二次开发</h3>
+            <p>引擎基于 TypeScript 全栈构建，通过 @avg-studio/sdk 访问所有 API。用 React 写游戏 UI，用 Extension 类替换内置界面、注入逻辑。</p>
+          </div>
+
+          <div class="tech-card reveal" style="transition-delay:.16s">
+            <div class="tech-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <h3>多平台构建与发布</h3>
+            <p>支持 Windows、macOS、Web 和 Android 构建，自主选择发行平台。工程与素材保存在本地，创作成果与原始文件完全由你掌握。</p>
+          </div>
+        </div>
+
+        <div class="tech-meta reveal">
+          <div class="tech-meta-item">
+            <span class="tech-meta-num">¥268</span>
+            <span class="tech-meta-label">一次买断 · 永久授权</span>
+          </div>
+          <div class="tech-meta-item">
+            <span class="tech-meta-num">0%</span>
+            <span class="tech-meta-label">作品收入抽成</span>
+          </div>
+          <div class="tech-meta-item">
+            <span class="tech-meta-num">8 天</span>
+            <span class="tech-meta-label">免费试用 · 全功能开放</span>
+          </div>
+          <div class="tech-meta-item">
+            <span class="tech-meta-num">2 台</span>
+            <span class="tech-meta-label">同账号可激活设备</span>
+          </div>
+        </div>
+
+        <p class="tech-source reveal">
+          引擎由第三方团队打造，更多信息请访问
+          <a href="https://avg-engine.com" target="_blank" rel="noopener" class="inline-link">avg-engine.com</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="cta-box reveal">
+          <h2>想和我们一起做游戏吗？</h2>
+          <p>
+            我们正在寻找志同道合的伙伴——无论是画师、CV、剧本写手还是程序员。
+            如果你也相信 Galgame 值得被认真对待，欢迎加入我们。
+          </p>
+          <a href="https://avg-engine.com/community/#club/6aae3c46a63311ae9dc86ec0" target="_blank" rel="noopener" class="btn btn-white">访问创作者社区 →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © 2026 LetsGal Studio · 因热爱而创作 ·
+      <a href="https://avg-engine.com" target="_blank" rel="noopener">avg-engine.com</a>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
