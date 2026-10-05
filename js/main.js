@@ -9,7 +9,7 @@
      ============================================================ */
   var BG_FOLDER = 'images/bg/';
   var BG_EXT    = '.png';
-  var BG_COUNT  = 2;
+  var BG_COUNT  = 5;
 
   var bgEl = document.getElementById('bgImage');
 
