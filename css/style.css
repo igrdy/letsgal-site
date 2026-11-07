@@ -5,7 +5,7 @@
    1. 中性色为主，用明暗对比突出主要操作；强调色仅一种
    2. 禁用渐变、发光、彩色阴影
    3. 间距仅使用 4 / 8 / 12 / 16 / 24 / 32
-   4. 圆角仅使用 6 / 10 / 16；嵌套圆角 = 内圆角 + 内边距
+   4. 圆角仅使用 8 / 14 / 22；嵌套圆角 = 内圆角 + 内边距
    5. 同一列元素共用左边缘
    6. 统一一套线性图标；无表情、感叹号、装饰性徽章
    7. 所有圆角使用连续曲率（squircle）
@@ -31,9 +31,9 @@
   --space-8: 32px;
 
   /* 圆角刻度：唯一允许的三个值 */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
 
   /* 字号 */
   --fs-xs: 12px;
@@ -259,7 +259,7 @@ main > section + section {
 
 /* ============================================================
    5. Navbar
-   外层 16 = 内层 10 + 内边距 6
+   外层 22 = 内层 14 + 内边距 8
    ============================================================ */
 .navbar {
   position: fixed;
@@ -302,7 +302,7 @@ main > section + section {
 .logo-mark {
   width: 28px;
   height: 28px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   flex: none;
   background: var(--surface-3);
@@ -968,7 +968,7 @@ body.light .theme-toggle .icon-moon { display: none; }
     grid-column: span 2;
   }
 
-  /* 菜单面板：外层 16 = 内层 10 + 内边距 6 */
+  /* 菜单面板：外层 22 = 内层 14 + 内边距 8 */
   .nav-collapse {
     position: absolute;
     top: calc(100% + var(--space-2));
@@ -977,7 +977,7 @@ body.light .theme-toggle .icon-moon { display: none; }
     display: none;
     flex-direction: column;
     gap: var(--space-1);
-    padding: var(--space-1);
+    padding: var(--space-2);
     border-radius: var(--radius-lg);
     background: var(--glass-strong);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(165%);
@@ -1007,7 +1007,7 @@ body.light .theme-toggle .icon-moon { display: none; }
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-2);
-    padding: var(--space-1);
+    padding: var(--space-2);
     border-top: 1px solid var(--line);
     margin-top: var(--space-1);
   }
