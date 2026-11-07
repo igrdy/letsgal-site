@@ -3,166 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>明晰夢 ～ルシッドドリーム～</title>
+<meta name="color-scheme" content="dark light">
+<title>明晰夢 ～ルシッドドリーム～ · 晓逸随风</title>
 <link rel="stylesheet" href="css/style.css">
-<style>
-  /* 头像图片填满 */
-  .member-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-    display: block;
-  }
-
-  /* 图片加载失败时，头像框显示字母兜底 */
-  .member-avatar.no-img {
-    display: grid;
-    place-items: center;
-    font-size: 22px;
-    font-weight: 800;
-    color: #e9d5ff;
-  }
-
-  /* 悬停简介：默认收起，鼠标放上去平滑展开 */
-  .member-bio {
-    max-height: 0;
-    opacity: 0;
-    margin-top: 0;
-    overflow: hidden;
-    font-size: 13px;
-    color: #94a3b8;
-    line-height: 1.6;
-    transition:
-      max-height .45s cubic-bezier(.22, 1, .36, 1),
-      opacity .35s ease,
-      margin-top .45s cubic-bezier(.22, 1, .36, 1);
-  }
-  .member-card:hover .member-bio,
-  .member-card:focus-visible .member-bio {
-    max-height: 180px;
-    opacity: 1;
-    margin-top: 10px;
-  }
-
-  /* 卡片链接样式 */
-  a.member-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-</style>
 </head>
 <body>
 
   <div class="bg-image" id="bgImage"></div>
-  <div class="bg-glow"><span></span><span></span><span></span> <span></span></div>
 
   <header class="navbar" id="navbar">
-    <div class="nav-inner">
+    <div class="nav-inner glass">
       <a href="#home" class="logo">
         <span class="logo-mark">
-          <img src="images/logo/logo.webp" alt="Logo">
+          <img src="images/logo/logo.webp" alt="">
         </span>
         <span>晓逸·随风</span>
       </a>
 
+      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false" aria-controls="navCollapse">
+        <span></span><span></span><span></span>
+      </button>
+
       <div class="nav-collapse" id="navCollapse">
         <nav class="nav-links">
-          <a href="#home" class="nav-link active">
-            <span class="nav-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            </span>
-            <span class="nav-text">首页</span>
+          <a href="#home" class="nav-link">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 10l8-7 8 7v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/>
+              <path d="M9 21v-7h6v7"/>
+            </svg>
+            <span>首页</span>
           </a>
-
           <a href="#team" class="nav-link">
-            <span class="nav-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-            </span>
-            <span class="nav-text">团队</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M15 20v-1.5a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4V20"/>
+              <circle cx="8.5" cy="7" r="3.5"/>
+              <path d="M18 20v-1.5a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.6a3.5 3.5 0 0 1 0 6.8"/>
+            </svg>
+            <span>团队</span>
           </a>
-
           <a href="#games" class="nav-link">
-            <span class="nav-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M17.5 6h-11A4.5 4.5 0 0 0 2 10.5v3A4.5 4.5 0 0 0 6.5 18h11a4.5 4.5 0 0 0 4.5-4.5v-3A4.5 4.5 0 0 0 17.5 6z"/>
-                <path d="M6 12h4M8 10v4"/>
-                <circle cx="15.5" cy="11.5" r="1"/>
-                <circle cx="18" cy="14" r="1"/>
-              </svg>
-            </span>
-            <span class="nav-text">作品</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3l9 5-9 5-9-5 9-5z"/>
+              <path d="M3 13l9 5 9-5"/>
+            </svg>
+            <span>作品</span>
           </a>
-
           <a href="#engine" class="nav-link">
-            <span class="nav-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="4" y="4" width="16" height="16" rx="2"/>
-                <rect x="9" y="9" width="6" height="6"/>
-                <line x1="9" y1="1" x2="9" y2="4"/>
-                <line x1="15" y1="1" x2="15" y2="4"/>
-                <line x1="9" y1="20" x2="9" y2="23"/>
-                <line x1="15" y1="20" x2="15" y2="23"/>
-                <line x1="20" y1="9" x2="23" y2="9"/>
-                <line x1="20" y1="14" x2="23" y2="14"/>
-                <line x1="1" y1="9" x2="4" y2="9"/>
-                <line x1="1" y1="14" x2="4" y2="14"/>
-              </svg>
-            </span>
-            <span class="nav-text">引擎</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="5" width="14" height="14" rx="2"/>
+              <rect x="9.5" y="9.5" width="5" height="5"/>
+              <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>
+            </svg>
+            <span>引擎</span>
           </a>
-
           <a href="#contact" class="nav-link">
-            <span class="nav-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </span>
-            <span class="nav-text">加入</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2.5" y="5" width="19" height="14" rx="2"/>
+              <path d="M3 6.5l9 6 9-6"/>
+            </svg>
+            <span>加入</span>
           </a>
         </nav>
 
-        <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
-          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          </svg>
-          <span class="theme-label">切换主题</span>
-        </button>
-
-        <a href="#games" class="btn-cta">查看作品</a>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+            <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 13.5A8 8 0 0 1 10.5 4a8 8 0 1 0 9.5 9.5z"/>
+            </svg>
+            <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.5 4.5l1.5 1.5M18 18l1.5 1.5M2 12h2M20 12h2M4.5 19.5L6 18M18 6l1.5-1.5"/>
+            </svg>
+            <span class="theme-label">切换主题</span>
+          </button>
+          <a href="#games" class="btn-cta">
+            查看作品
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h15"/>
+              <path d="M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
       </div>
-
-      <button class="hamburger" id="hamburger" aria-label="打开菜单" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
   <main>
     <section id="home" class="hero">
       <div class="container">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          为梦奋进！！！
-        </div>
-        <h1>正是<span class="grad">青春焕发</span>时<br>我们为爱发电</h1>
+        <h1>正是青春焕发时<br>我们为爱发电</h1>
+        <p>十个人的独立企划，把故事做成可以玩的东西。</p>
         <div class="hero-actions">
-          <a href="#team" class="btn btn-primary">认识我们 →</a>
-          <a href="#games" class="btn btn-ghost">看看作品</a>
+          <a href="#games" class="btn btn-primary">
+            了解《清醒梦》
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h15"/>
+              <path d="M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <a href="#team" class="btn btn-ghost">认识制作组</a>
         </div>
       </div>
     </section>
@@ -170,244 +110,241 @@
     <section id="team">
       <div class="container">
         <div class="section-head reveal">
-          <h2>九个人的故事</h2>
-          <p>每个人都是不可或缺的一块拼图。</p>
+          <span class="eyebrow">制作组</span>
+          <h2>十个人的清醒梦</h2>
+          <p>也许是最年轻的制作组，也是最共产主义的制作组。每个人都是不可或缺的一块拼图。</p>
         </div>
 
-        <div class="grid">
-          <!-- 10967 主策划 -->
-          <a href="https://avg-engine.com/community/#profile/6a9576f90790bef6a53c352d" class="member-card reveal">
-            <div class="member-avatar">
-              <img src="images/logo/10967.jpg" alt="主策划"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
+        <div class="team-grid">
+        <a class="member-card glass reveal member-card--lead" href="https://c.avg-engine.com/creator/6a9576f90790bef6a53c352d" target="_blank" rel="noopener" data-name="喵小逸" data-role="主策划 · 发起人" data-uid="10967" data-bio="《清醒梦》的发起者与主策划，统筹剧本方向与整体进度。二五届高中生，坚持手搓，不走 AI 生成。" data-avatar="images/members/10967.jpg">
+          <div class="member-avatar member-avatar--lg"><img src="images/members/10967.jpg" alt="喵小逸" loading="lazy" data-initial="喵"></div>
+          <div class="member-main">
             <h3>喵小逸</h3>
-            <span class="member-role">主策划</span>
-            <div class="member-bio">难道高中生就不能做galgame了吗？我不管，我就要做喵！！！･ﾟ･(｡>д<｡)･ﾟ･</div>
-          </a>
+            <span class="member-role">主策划 · 发起人</span>
+            <p class="member-bio">《清醒梦》的发起者与主策划，统筹剧本方向与整体进度。二五届高中生，坚持手搓，不走 AI 生成。</p>
+            <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </a>
 
-          <!-- 1128 后勤人员 -->
-          <a href="#" class="member-card reveal" style="transition-delay:.06s">
-            <div class="member-avatar">
-              <img src="images/logo/1128.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>Seirasetsuna_xuan</h3>
-            <span class="member-role">联合制作人</span>
-            <div class="member-bio">这里是萱，画师/编剧/配音/音乐一体机的邪恶百合屯女人。超级杂食党，百合大欢迎！ </div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6a9fbb30dd9bea321171ec1b" target="_blank" rel="noopener" style="transition-delay:.04s" data-name="Seirasetsuna_xuan" data-role="联合制作人 · 画师／编剧／配音" data-uid="1128" data-bio="画师、编剧、配音、音乐一手包办。百合题材重度爱好者，角色与声音都由她落地。" data-avatar="images/members/1128.jpg">
+          <div class="member-avatar"><img src="images/members/1128.jpg" alt="Seirasetsuna_xuan" loading="lazy" data-initial="萱"></div>
+          <h3>Seirasetsuna_xuan</h3>
+          <span class="member-role">联合制作人 · 画师／编剧／配音</span>
+          <p class="member-bio">画师、编剧、配音、音乐一手包办。百合题材重度爱好者，角色与声音都由她落地。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11066 后勤人员 -->
-          <a href="#" class="member-card reveal" style="transition-delay:.12s">
-            <div class="member-avatar">
-              <img src="images/logo/11066.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>翻车鱼</h3>
-            <span class="member-role">后勤人员</span>
-            <div class="member-bio">暂未设置个性签名</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6aad332fa63311ae9dc7ecb3" target="_blank" rel="noopener" style="transition-delay:.08s" data-name="烈户" data-role="编剧 · 作曲" data-uid="11368" data-bio="负责剧本撰写与部分作曲，偏好线条复杂、结构封闭的转场构图。" data-avatar="images/members/11368.jpg">
+          <div class="member-avatar"><img src="images/members/11368.jpg" alt="烈户" loading="lazy" data-initial="烈"></div>
+          <h3>烈户</h3>
+          <span class="member-role">编剧 · 作曲</span>
+          <p class="member-bio">负责剧本撰写与部分作曲，偏好线条复杂、结构封闭的转场构图。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11368 后勤人员 -->
-          <a href="#" class="member-card reveal">
-            <div class="member-avatar">
-              <img src="images/logo/11368.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>烈户</h3>
-            <span class="member-role">编剧</span>
-            <div class="member-bio">负责编剧及部分作曲工作。</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6aafbf978c78f85a389dac62" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="岚空" data-role="开发 · 前端" data-uid="11503" data-bio="负责站点与前端实现，这套介绍页也出自他手。" data-avatar="images/members/11503.jpg">
+          <div class="member-avatar"><img src="images/members/11503.jpg" alt="岚空" loading="lazy" data-initial="岚"></div>
+          <h3>岚空</h3>
+          <span class="member-role">开发 · 前端</span>
+          <p class="member-bio">负责站点与前端实现，这套介绍页也出自他手。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11450 后勤人员 -->
-          <a href="#" class="member-card reveal" style="transition-delay:.06s">
-            <div class="member-avatar">
-              <img src="images/logo/11450.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>枫-ATRI</h3>
-            <span class="member-role">后勤人员</span>
-            <div class="member-bio">暂未设置个性签名。</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6adc820c8327d976759af607" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="逸骁·随风" data-role="文案 · 动态" data-uid="12556" data-bio="把设定写成可读的文本，《清醒梦》的制作动态由他发布。" data-avatar="">
+          <div class="member-avatar"><span class="member-initial">逸</span></div>
+          <h3>逸骁·随风</h3>
+          <span class="member-role">文案 · 动态</span>
+          <p class="member-bio">把设定写成可读的文本，《清醒梦》的制作动态由他发布。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11502 后勤人员 -->
-          <a href="#" class="member-card reveal" style="transition-delay:.12s">
-            <div class="member-avatar">
-              <img src="images/logo/11502.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>刚刚好</h3>
-            <span class="member-role">后勤人员</span>
-            <div class="member-bio">暂未设置个性签名</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6aae88a8844de50615eb5775" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="枫-ATRI" data-role="成员" data-uid="11450" data-bio="暂未填写签名。" data-avatar="images/members/11450.jpg">
+          <div class="member-avatar"><img src="images/members/11450.jpg" alt="枫-ATRI" loading="lazy" data-initial="枫"></div>
+          <h3>枫-ATRI</h3>
+          <span class="member-role">成员</span>
+          <p class="member-bio">暂未填写签名。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11503 后勤人员 -->
-          <a href="#" class="member-card reveal">
-            <div class="member-avatar">
-              <img src="images/logo/11503.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>AzureLan</h3>
-            <span class="member-role">开发者</span>
-            <div class="member-bio">fw一个</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6a9c15287a32271797c15532" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="翻车鱼" data-role="成员" data-uid="11066" data-bio="暂未填写签名。" data-avatar="">
+          <div class="member-avatar"><span class="member-initial">翻</span></div>
+          <h3>翻车鱼</h3>
+          <span class="member-role">成员</span>
+          <p class="member-bio">暂未填写签名。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11507 后勤人员 -->
-          <a href="#" class="member-card reveal" style="transition-delay:.06s">
-            <div class="member-avatar">
-              <img src="images/logo/11507.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>小沐</h3>
-            <span class="member-role">后勤人员</span>
-            <div class="member-bio">暂未设置个性签名</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6aafbf558c78f85a389dac45" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="刚刚好" data-role="成员" data-uid="11502" data-bio="暂未填写签名。" data-avatar="">
+          <div class="member-avatar"><span class="member-initial">刚</span></div>
+          <h3>刚刚好</h3>
+          <span class="member-role">成员</span>
+          <p class="member-bio">暂未填写签名。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
 
-          <!-- 11600 后勤人员 -->
-          <a href="#" class="member-card reveal" style="transition-delay:.12s">
-            <div class="member-avatar">
-              <img src="images/logo/11600.jpg" alt="后勤人员"
-                   onerror="this.parentNode.classList.add('no-img'); this.parentNode.innerHTML='U';">
-            </div>
-            <h3>咔咔喵</h3>
-            <span class="member-role">后勤人员</span>
-            <div class="member-bio">暂未设置个性签名</div>
-          </a>
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6aafd6758c78f85a389dbba0" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="小沐" data-role="成员" data-uid="11507" data-bio="暂未填写签名。" data-avatar="">
+          <div class="member-avatar"><span class="member-initial">沐</span></div>
+          <h3>小沐</h3>
+          <span class="member-role">成员</span>
+          <p class="member-bio">暂未填写签名。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a class="member-card glass reveal" href="https://c.avg-engine.com/creator/6ab33a9275db1fd30291ea7b" target="_blank" rel="noopener" style="transition-delay:.12s" data-name="咔咔喵" data-role="成员" data-uid="11600" data-bio="暂未填写签名。" data-avatar="">
+          <div class="member-avatar"><span class="member-initial">咔</span></div>
+          <h3>咔咔喵</h3>
+          <span class="member-role">成员</span>
+          <p class="member-bio">暂未填写签名。</p>
+          <span class="member-foot">查看主页 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></span>
+        </a>
         </div>
+
+        <p class="team-note reveal">
+          成员资料来自
+          <a href="https://c.avg-engine.com/club/6aae3c46a63311ae9dc86ec0" class="inline-link" target="_blank" rel="noopener">嘎啦给木俱乐部主页</a>，点开任意成员可查看其个人主页与动态。
+        </p>
       </div>
     </section>
 
     <section id="games">
       <div class="container">
         <div class="section-head reveal">
-          <h2>我们的作品</h2>
-          <p>test</p>
+          <span class="eyebrow">作品</span>
+          <h2>正在制作的第一部作品</h2>
+          <p>全员学生，假期开工，坚持手搓。</p>
         </div>
 
-        <div class="game-card reveal" style="transition-delay:.08s">
-          <div class="game-header">
-            <div class="game-cover">角</div>
-            <div class="game-title">
-              <h3>test</h3>
-              <div class="game-tags">
-                <span class="game-tag">test</span>
-                <span class="game-tag">test</span>
-              </div>
+        <article class="work-card glass reveal">
+          <div class="work-cover" aria-hidden="true">醒</div>
+          <div class="work-body">
+            <div class="work-meta">
+              <span class="tag tag-accent">制作中</span>
+              <span class="tag">视觉小说</span>
+              <span class="tag">PC</span>
             </div>
+            <h3>清醒梦<span class="work-sub">明晰夢 ～ルシッドドリーム～</span></h3>
+            <p>一个关于梦与清醒的学园故事。全员学生制作，坚持手搓，不走 AI 生成。</p>
+            <p>剧本、立绘与演出在 AVG Engine 中同步推进，进度与延期公告都发在制作组动态里。</p>
+            <a href="https://c.avg-engine.com/club/6aae3c46a63311ae9dc86ec0" class="text-link" target="_blank" rel="noopener">
+              查看制作动态
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 12h15"/>
+                <path d="M13 6l6 6-6 6"/>
+              </svg>
+            </a>
           </div>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p>test</p>
-          <p class="game-note">test</p>
-        </div>
+        </article>
+
+        <p class="work-note reveal">其余企划筹备中，暂不公开。</p>
       </div>
     </section>
 
-    <section id="engine" class="tech-section">
+    <section id="engine">
       <div class="container">
         <div class="section-head reveal">
+          <span class="eyebrow">引擎</span>
           <h2>我们使用的创作引擎</h2>
           <p>
-            游戏开发基于第三方的 AVG / Galgame 创作引擎——
+            开发基于第三方的 AVG 创作引擎
             <a href="https://avg-engine.com" target="_blank" rel="noopener" class="inline-link">avg-engine.com</a>。
-            它让「写作就是创作」成为可能，我们只需专注讲好故事。
+            写作即创作，我们只需专注讲好故事。
           </p>
         </div>
 
         <div class="tech-grid">
-          <div class="tech-card reveal">
+          <article class="tech-card glass reveal">
             <div class="tech-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 20h9"/>
-                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/>
               </svg>
             </div>
             <h3>可视化剧本编辑</h3>
-            <p>用 Block 编写对白、选项与条件，无需编程基础。敲下每一个字，即刻出现在预览画面里——没有编译，没有中间态。</p>
-          </div>
+            <p>用 Block 编写对白、选项与条件，无需编程基础。敲下每一个字，即刻出现在预览画面里。</p>
+          </article>
 
-          <div class="tech-card reveal" style="transition-delay:.08s">
+          <article class="tech-card glass reveal">
             <div class="tech-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                <polyline points="2 17 12 22 22 17"/>
-                <polyline points="2 12 12 17 22 12"/>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/>
+                <path d="M4 7.5L12 12l8-4.5"/>
+                <path d="M12 12v9"/>
               </svg>
             </div>
             <h3>角色与演出系统</h3>
-            <p>支持 Spine、Live2D、序列帧与差分立绘，内置网格动画编辑器。可调整镜头、滤镜与过渡动画，配置替换后所有剧本引用自动同步。</p>
-          </div>
+            <p>支持 Spine、Live2D、序列帧与差分立绘，内置网格动画编辑器。替换素材后所有剧本引用自动同步。</p>
+          </article>
 
-          <div class="tech-card reveal" style="transition-delay:.16s">
+          <article class="tech-card glass reveal">
             <div class="tech-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="6" y1="3" x2="6" y2="15"/>
-                <circle cx="18" cy="6" r="3"/>
-                <circle cx="6" cy="18" r="3"/>
-                <path d="M18 9a9 9 0 0 1-9 9"/>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="6" cy="5" r="2.2"/>
+                <circle cx="18" cy="12" r="2.2"/>
+                <circle cx="6" cy="19" r="2.2"/>
+                <path d="M8.2 5H12a3 3 0 0 1 3 3v1.8"/>
+                <path d="M6 7.2v9.6"/>
               </svg>
             </div>
             <h3>叙事地图与蓝图</h3>
-            <p>用叙事地图一眼看清章节、分支与片段的关系；蓝图设计模式则通过可视化节点组织剧情流程，让复杂故事结构不再混乱。</p>
-          </div>
+            <p>用叙事地图看清章节、分支与片段的关系；蓝图模式通过可视化节点组织剧情流程。</p>
+          </article>
 
-          <div class="tech-card reveal">
+          <article class="tech-card glass reveal">
             <div class="tech-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/>
+                <circle cx="12" cy="12" r="2.8"/>
               </svg>
             </div>
             <h3>实时预览与调试</h3>
-            <p>实时预览当前画面，通过时间轴、变量观测和快照检查剧情走向。支持 OP 时间轴跳转与属性检查，调试效率大幅提升。</p>
-          </div>
+            <p>通过时间轴、变量观测和快照检查剧情走向，支持属性检查，调试效率大幅提升。</p>
+          </article>
 
-          <div class="tech-card reveal" style="transition-delay:.08s">
+          <article class="tech-card glass reveal">
             <div class="tech-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 8l-4 4 4 4"/>
+                <path d="M15 8l4 4-4 4"/>
               </svg>
             </div>
             <h3>扩展与二次开发</h3>
-            <p>引擎基于 TypeScript 全栈构建，通过 @avg-studio/sdk 访问所有 API。用 React 写游戏 UI，用 Extension 类替换内置界面、注入逻辑。</p>
-          </div>
+            <p>引擎基于 TypeScript 全栈构建，可通过 SDK 访问全部 API，用 React 编写自定义界面。</p>
+          </article>
 
-          <div class="tech-card reveal" style="transition-delay:.16s">
+          <article class="tech-card glass reveal">
             <div class="tech-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                <line x1="12" y1="22.08" x2="12" y2="12"/>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2.5" y="4" width="13" height="10" rx="1.5"/>
+                <rect x="16.5" y="10" width="5" height="10" rx="1.5"/>
+                <path d="M6 20h5"/>
               </svg>
             </div>
-            <h3>多平台构建与发布</h3>
-            <p>支持 Windows、macOS、Web 和 Android 构建，自主选择发行平台。工程与素材保存在本地，创作成果与原始文件完全由你掌握。</p>
-          </div>
+            <h3>多平台构建</h3>
+            <p>支持 Windows、macOS、Web 与 Android 构建。工程与素材保存在本地，成果完全由你掌握。</p>
+          </article>
         </div>
 
         <div class="tech-meta reveal">
-          <div class="tech-meta-item">
+          <div class="tech-meta-item glass">
             <span class="tech-meta-num">¥268</span>
             <span class="tech-meta-label">一次买断 · 永久授权</span>
           </div>
-          <div class="tech-meta-item">
+          <div class="tech-meta-item glass">
             <span class="tech-meta-num">0%</span>
             <span class="tech-meta-label">作品收入抽成</span>
           </div>
-          <div class="tech-meta-item">
+          <div class="tech-meta-item glass">
             <span class="tech-meta-num">8 天</span>
             <span class="tech-meta-label">免费试用 · 全功能开放</span>
           </div>
-          <div class="tech-meta-item">
+          <div class="tech-meta-item glass">
             <span class="tech-meta-num">2 台</span>
             <span class="tech-meta-label">同账号可激活设备</span>
           </div>
         </div>
 
         <p class="tech-source reveal">
-          引擎由第三方团队打造，更多信息请访问
+          引擎由第三方团队打造，更多信息见
           <a href="https://avg-engine.com" target="_blank" rel="noopener" class="inline-link">avg-engine.com</a>
         </p>
       </div>
@@ -415,13 +352,16 @@
 
     <section id="contact">
       <div class="container">
-        <div class="cta-box reveal">
-          <h2>想和我们一起做游戏吗？</h2>
-          <p>
-            我们正在寻找志同道合的伙伴——无论是画师、CV、剧本写手还是程序员。
-            如果你也相信 Galgame 值得被认真对待，欢迎加入我们。
-          </p>
-          <a href="https://avg-engine.com/community/#club/6aae3c46a63311ae9dc86ec0" target="_blank" rel="noopener" class="btn btn-white">访问创作者社区 →</a>
+        <div class="cta-box glass reveal">
+          <h2>想和我们一起做游戏吗</h2>
+          <p>我们正在寻找画师、CV、剧本写手与程序员。如果你也相信 Galgame 值得被认真对待，欢迎加入。</p>
+          <a href="https://c.avg-engine.com/club/6aae3c46a63311ae9dc86ec0" class="btn btn-primary" target="_blank" rel="noopener">
+            访问创作者社区
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 17L17 7"/>
+              <path d="M8 7h9v9"/>
+            </svg>
+          </a>
         </div>
       </div>
     </section>
@@ -429,12 +369,46 @@
 
   <footer class="footer">
     <div class="container">
-      闲的 ,或者来试试这个引擎吧→
+      <span>晓逸·随风 · 九人独立企划</span>
       <a href="https://avg-engine.com" target="_blank" rel="noopener">avg-engine.com</a>
     </div>
   </footer>
 
-  <button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+  <div class="sheet" id="memberSheet" hidden>
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet-panel glass" id="sheetPanel" role="dialog" aria-modal="true" aria-labelledby="sheetName" tabindex="-1">
+      <div class="sheet-head">
+        <div class="member-avatar member-avatar--lg" id="sheetAvatar"></div>
+        <div class="sheet-id">
+          <h2 id="sheetName"></h2>
+          <p class="sheet-role" id="sheetRole"></p>
+        </div>
+        <button class="sheet-close" id="sheetClose" aria-label="关闭">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+      <p class="sheet-bio" id="sheetBio"></p>
+      <div class="sheet-foot">
+        <span class="sheet-uid" id="sheetUid"></span>
+        <a class="btn btn-primary" id="sheetLink" href="#" target="_blank" rel="noopener">
+          查看主页
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 17L17 7"/>
+            <path d="M8 7h9v9"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="回到顶部">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 20V5"/>
+      <path d="M6 11l6-6 6 6"/>
+    </svg>
+  </button>
 
   <script src="js/main.js"></script>
 </body>
