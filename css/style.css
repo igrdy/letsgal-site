@@ -197,7 +197,8 @@ ul {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  filter: brightness(.45) saturate(.9) contrast(1.05);
+  filter: brightness(.45) saturate(.9) contrast(1.05) blur(3px);
+  transform: scale(1.03);
   opacity: 0;
   transition: opacity 1.2s var(--ease);
   pointer-events: none;
@@ -208,7 +209,7 @@ ul {
 }
 
 body.light .page-bg {
-  filter: brightness(1.25) saturate(.7);
+  filter: brightness(1.25) saturate(.7) blur(3px);
 }
 
 body.light .page-bg.loaded {
