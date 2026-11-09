@@ -395,30 +395,27 @@ ul {
   gap: var(--s3);
 }
 
-/* 背景美术：有出处的画面，不假装是截图 */
-.artwork {
-  border: 1px solid var(--line-2);
+/* 图片位：暂时没有素材时用文字占位，换成图片时只替换里面的内容 */
+.media {
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--line);
   border-radius: var(--r3);
   background: var(--ink-2);
   overflow: hidden;
-  box-shadow: 0 28px 64px -32px rgba(0, 0, 0, .85);
 }
 
-body.light .artwork {
-  box-shadow: 0 16px 40px -24px rgba(17, 24, 39, .22);
-}
-
-.artwork img {
+.media img {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
 }
 
-.artwork figcaption {
-  padding: var(--s3) var(--s4);
-  border-top: 1px solid var(--line);
+.media--empty {
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+  border-color: var(--line-2);
   color: var(--fg-3);
 }
 
@@ -572,27 +569,6 @@ section {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
   gap: var(--s12);
   align-items: start;
-}
-
-.work-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s3);
-}
-
-.work-gallery img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  border: 1px solid var(--line);
-  border-radius: var(--r3);
-  background: var(--ink-2);
-}
-
-.work-gallery figcaption {
-  color: var(--fg-3);
 }
 
 .work-info h3 {
