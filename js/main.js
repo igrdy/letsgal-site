@@ -1,160 +1,52 @@
 /* ============================================================
-   LetsGal Studio — Main Script
+   晓逸·随风 — Main Script
    ============================================================ */
 (function () {
   'use strict';
 
-  /* ============================================================
-     随机背景图
-     ============================================================ */
-  var BG_FOLDER = 'images/bg/';
-  var BG_EXT = '.png';
-  var BG_COUNT = 5;
-
-  var bgEl = document.getElementById('bgImage');
-
-  /* ============================================================
-     背景取色
-     从当前背景图里采样：整体色相 -> 中性灰阶；最饱和的一簇 -> 强调色。
-     ============================================================ */
-  function derivePalette(img) {
-    try {
-      var N = 32;
-      var cv = document.createElement('canvas');
-      cv.width = N;
-      cv.height = N;
-
-      var ctx = cv.getContext('2d', { willReadFrequently: true });
-      ctx.drawImage(img, 0, 0, N, N);
-
-      var data = ctx.getImageData(0, 0, N, N).data;
-      var dx = 0, dy = 0, weight = 0, lumSum = 0, lumCount = 0;
-      var bins = [];
-      var i, k;
-
-      for (i = 0; i < 36; i++) bins[i] = 0;
-
-      for (i = 0; i < data.length; i += 4) {
-        var r = data[i] / 255;
-        var g = data[i + 1] / 255;
-        var b = data[i + 2] / 255;
-        var max = Math.max(r, g, b);
-        var min = Math.min(r, g, b);
-        var v = max;
-        var s = max ? (max - min) / max : 0;
-
-        lumSum += 0.2126 * r + 0.7152 * g + 0.0722 * b;
-        lumCount++;
-
-        /* 跳过接近纯黑、纯白与无彩色的像素 */
-        if (v < 0.08 || v > 0.97 || s < 0.09) continue;
-
-        var h;
-        var d = max - min;
-        if (d === 0) h = 0;
-        else if (max === r) h = ((g - b) / d) % 6;
-        else if (max === g) h = (b - r) / d + 2;
-        else h = (r - g) / d + 4;
-        h *= 60;
-        if (h < 0) h += 360;
-
-        /* 明度适中的像素权重更高 */
-        var w = s * (1 - Math.abs(v - 0.55) * 0.8);
-        if (w <= 0) continue;
-
-        dx += Math.cos(h * Math.PI / 180) * w;
-        dy += Math.sin(h * Math.PI / 180) * w;
-        weight += w;
-
-        bins[Math.floor(h / 10) % 36] += w;
-      }
-
-      if (weight < 1) return null;
-
-      var base = Math.atan2(dy, dx) * 180 / Math.PI;
-      if (base < 0) base += 360;
-
-      /* 强调色取最饱和的一簇，但避开与中性色相过于接近的区间 */
-      var bestBin = -1;
-      var bestScore = 0;
-      for (k = 0; k < 36; k++) {
-        var hue = k * 10 + 5;
-        var gap = Math.abs(((hue - base + 540) % 360) - 180);
-        var score = bins[k] * (gap < 40 ? 0.15 : 1);
-        if (score > bestScore) {
-          bestScore = score;
-          bestBin = k;
-        }
-      }
-
-      return {
-        base: Math.round(base),
-        accent: bestBin < 0 ? Math.round((base + 40) % 360) : bestBin * 10 + 5,
-        lum: lumCount ? Math.min(1, Math.max(0, lumSum / lumCount)) : 0.5
-      };
-    } catch (e) {
-      return null;
-    }
+  function safeGet(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
   }
 
-  function applyPalette(palette) {
-    if (!palette) return;
-    var root = document.documentElement;
-    root.style.setProperty('--hue', palette.base);
-    root.style.setProperty('--accent-hue', palette.accent);
-    root.style.setProperty('--photo-lum', palette.lum.toFixed(3));
-  }
-
-  if (bgEl && BG_COUNT > 0) {
-    var pick = Math.floor(Math.random() * BG_COUNT) + 1;
-    bgEl.style.backgroundImage = 'url("' + BG_FOLDER + pick + BG_EXT + '")';
-
-    var probe = new Image();
-    probe.onload = function () {
-      applyPalette(derivePalette(probe));
-      bgEl.classList.add('loaded');
-    };
-    probe.src = BG_FOLDER + pick + BG_EXT;
-
-    /* 兜底：图片加载过慢时也不阻断阅读 */
-    setTimeout(function () {
-      bgEl.classList.add('loaded');
-    }, 1200);
+  function safeSet(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) {}
   }
 
   /* ============================================================
-     头像加载失败时退回首字
+     主题：跟随系统，手动切换后记住
      ============================================================ */
-  document.querySelectorAll('.member-avatar img').forEach(function (img) {
-    img.addEventListener('error', function () {
-      var box = img.parentNode;
-      box.textContent = img.getAttribute('data-initial') || '';
-      box.style.fontSize = '17px';
-    });
-  });
-
-  /* ============================================================
-     主题
-     ============================================================ */
-  function safeGet(k) {
-    try { return localStorage.getItem(k); } catch (e) { return null; }
-  }
-  function safeSet(k, v) {
-    try { localStorage.setItem(k, v); } catch (e) {}
-  }
-
-  /* 未手动切换时跟随系统外观 */
   var systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)');
+  var themeToggle = document.getElementById('themeToggle');
+
+  function isLight() {
+    return document.body.classList.contains('light');
+  }
+
+  function syncThemeLabel() {
+    if (!themeToggle) return;
+    themeToggle.textContent = isLight() ? '深色' : '浅色';
+  }
 
   function applySystemTheme() {
     if (safeGet('letsgal-theme')) return;
     document.body.classList.toggle('light', systemPrefersLight.matches);
+    syncThemeLabel();
   }
 
   if (safeGet('letsgal-theme') === 'light') {
     document.body.classList.add('light');
   } else {
     applySystemTheme();
+  }
+
+  syncThemeLabel();
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      document.body.classList.toggle('light');
+      safeSet('letsgal-theme', isLight() ? 'light' : 'dark');
+      syncThemeLabel();
+    });
   }
 
   if (systemPrefersLight.addEventListener) {
@@ -164,84 +56,60 @@
   /* ============================================================
      导航
      ============================================================ */
-  var navbar = document.getElementById('navbar');
-  var navCollapse = document.getElementById('navCollapse');
-  var hamburger = document.getElementById('hamburger');
-  var themeToggle = document.getElementById('themeToggle');
+  var nav = document.getElementById('navbar');
+  var navLinks = document.getElementById('navLinks');
+  var toggle = document.getElementById('hamburger');
   var toTop = document.getElementById('toTop');
 
-  if (!navbar || !navCollapse || !hamburger || !toTop) {
-    return;
+  var links = navLinks ? navLinks.querySelectorAll('a[href^="#"]') : [];
+  var sections = document.querySelectorAll('section[id]');
+
+  function closeMenu() {
+    if (!navLinks || !toggle) return;
+    navLinks.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
   }
 
-  var links = navCollapse.querySelectorAll('.nav-link');
-  var sections = document.querySelectorAll('section[id]');
-  var isMobile = function () { return window.innerWidth <= 900; };
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = navLinks.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
 
-  if (themeToggle) {
-    themeToggle.addEventListener('click', function () {
-      document.body.classList.toggle('light');
-      safeSet('letsgal-theme',
-        document.body.classList.contains('light') ? 'light' : 'dark');
+    navLinks.addEventListener('click', function (e) {
+      if (e.target.closest('a')) closeMenu();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (nav && !nav.contains(e.target)) closeMenu();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 960) closeMenu();
     });
   }
 
-  function openMenu() {
-    hamburger.classList.add('open');
-    navCollapse.classList.add('open');
-    hamburger.setAttribute('aria-expanded', 'true');
-  }
-
-  function closeMenu() {
-    hamburger.classList.remove('open');
-    navCollapse.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-  }
-
-  hamburger.addEventListener('click', function (e) {
-    e.stopPropagation();
-    if (navCollapse.classList.contains('open')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  });
-
-  navCollapse.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('click', function (e) {
-    if (!navbar.contains(e.target)) closeMenu();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeMenu();
-  });
-
-  window.addEventListener('resize', function () {
-    if (!isMobile()) closeMenu();
-  });
-
   /* ============================================================
-     滚动
+     滚动：当前区块高亮 + 回到顶部
      ============================================================ */
   var ticking = false;
 
   function onScroll() {
     var y = window.scrollY;
 
-    navbar.classList.toggle('scrolled', y > 40);
-    toTop.classList.toggle('show', y > 480);
+    if (toTop) toTop.classList.toggle('show', y > 600);
 
     var current = sections.length ? sections[0].id : '';
-    sections.forEach(function (sec) {
-      if (y + 140 >= sec.offsetTop) current = sec.id;
+    sections.forEach(function (section) {
+      if (y + 120 >= section.offsetTop) current = section.id;
     });
-
-    if (y + window.innerHeight >= document.documentElement.scrollHeight - 4) {
-      current = sections[sections.length - 1].id;
-    }
 
     links.forEach(function (link) {
       link.classList.toggle('active', link.getAttribute('href') === '#' + current);
@@ -259,51 +127,61 @@
 
   onScroll();
 
-  toTop.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  if (toTop) {
+    toTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* ============================================================
-     成员资料卡：点卡片就地展开，再从卡里进真实主页
+     成员资料卡
      ============================================================ */
   var sheet = document.getElementById('memberSheet');
-  var memberCards = document.querySelectorAll('.member-card[data-name]');
+  var people = document.querySelectorAll('.person[data-name]');
 
-  if (sheet && memberCards.length) {
-    var sheetAvatar = document.getElementById('sheetAvatar');
-    var sheetName = document.getElementById('sheetName');
-    var sheetRole = document.getElementById('sheetRole');
-    var sheetBio = document.getElementById('sheetBio');
-    var sheetUid = document.getElementById('sheetUid');
-    var sheetLink = document.getElementById('sheetLink');
-    var sheetClose = document.getElementById('sheetClose');
-    var sheetPanel = document.getElementById('sheetPanel');
+  if (sheet && people.length) {
+    var panel = document.getElementById('sheetPanel');
+    var avatarBox = document.getElementById('sheetAvatar');
+    var nameEl = document.getElementById('sheetName');
+    var roleEl = document.getElementById('sheetRole');
+    var bioEl = document.getElementById('sheetBio');
+    var uidEl = document.getElementById('sheetUid');
+    var linkEl = document.getElementById('sheetLink');
+    var closeBtn = document.getElementById('sheetClose');
     var lastFocus = null;
 
-    function openSheet(card) {
-      var avatar = card.getAttribute('data-avatar');
-      var name = card.getAttribute('data-name') || '';
+    function openSheet(person) {
+      var name = person.getAttribute('data-name') || '';
+      var avatar = person.getAttribute('data-avatar');
 
-      sheetAvatar.textContent = '';
+      avatarBox.textContent = '';
+      avatarBox.classList.remove('person-avatar--text');
+
       if (avatar) {
         var img = document.createElement('img');
         img.src = avatar;
         img.alt = '';
-        sheetAvatar.appendChild(img);
+        img.className = 'person-avatar';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.border = '0';
+        img.style.borderRadius = 'inherit';
+        avatarBox.appendChild(img);
       } else {
-        sheetAvatar.textContent = name.charAt(0);
+        avatarBox.textContent = name.charAt(0);
+        avatarBox.classList.add('person-avatar--text');
       }
 
-      sheetName.textContent = name;
-      sheetRole.textContent = card.getAttribute('data-role') || '';
-      sheetBio.textContent = card.getAttribute('data-bio') || '';
-      sheetUid.textContent = 'UID ' + card.getAttribute('data-uid');
-      sheetLink.href = card.getAttribute('href');
+      nameEl.textContent = name;
+      roleEl.textContent = person.getAttribute('data-role') || '';
+      bioEl.textContent = person.getAttribute('data-bio') || '';
+      uidEl.textContent = 'UID ' + person.getAttribute('data-uid');
+      linkEl.href = person.getAttribute('href');
 
       lastFocus = document.activeElement;
       sheet.hidden = false;
       document.body.classList.add('sheet-open');
-      if (sheetPanel) sheetPanel.focus();
+      if (panel) panel.focus();
     }
 
     function closeSheet() {
@@ -313,12 +191,11 @@
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
 
-    memberCards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        /* 允许用修饰键或中键正常打开新标签 */
+    people.forEach(function (person) {
+      person.addEventListener('click', function (e) {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         e.preventDefault();
-        openSheet(card);
+        openSheet(person);
       });
     });
 
@@ -326,7 +203,7 @@
       if (e.target.hasAttribute('data-close')) closeSheet();
     });
 
-    sheetClose.addEventListener('click', closeSheet);
+    if (closeBtn) closeBtn.addEventListener('click', closeSheet);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeSheet();
@@ -334,6 +211,7 @@
 
       var focusable = sheet.querySelectorAll('a[href], button');
       if (!focusable.length) return;
+
       var first = focusable[0];
       var last = focusable[focusable.length - 1];
 
@@ -347,25 +225,4 @@
     });
   }
 
-  /* ============================================================
-     进场动画
-     ============================================================ */
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
-
-    document.querySelectorAll('.reveal').forEach(function (el) {
-      io.observe(el);
-    });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function (el) {
-      el.classList.add('visible');
-    });
-  }
 })();
