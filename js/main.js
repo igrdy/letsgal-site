@@ -13,6 +13,24 @@
   }
 
   /* ============================================================
+     页面底图：每次随机一张，加载完再淡入
+     ============================================================ */
+  var pageBg = document.getElementById('pageBg');
+
+  if (pageBg) {
+    var plate = Math.floor(Math.random() * 5) + 1;
+    var url = 'images/plate-' + plate + '.webp';
+    var img = new Image();
+
+    img.onload = function () {
+      pageBg.style.backgroundImage = 'url("' + url + '")';
+      pageBg.classList.add('loaded');
+    };
+
+    img.src = url;
+  }
+
+  /* ============================================================
      主题：跟随系统，手动切换后记住
      ============================================================ */
   var systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)');

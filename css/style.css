@@ -189,6 +189,32 @@ ul {
   letter-spacing: 0;
 }
 
+/* 页面底图：随机一张背景，压到只当氛围，不做主体 */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(.45) saturate(.9) contrast(1.05);
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+  pointer-events: none;
+}
+
+.page-bg.loaded {
+  opacity: .12;
+}
+
+body.light .page-bg {
+  filter: brightness(1.25) saturate(.7);
+}
+
+body.light .page-bg.loaded {
+  opacity: .05;
+}
+
 /* ============================================================
    3. Nav
    ============================================================ */
@@ -368,7 +394,7 @@ ul {
 }
 
 .hero-copy h1 {
-  font-size: clamp(40px, 5.4vw, 66px);
+  font-size: clamp(56px, 7.4vw, 92px);
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -.03em;
@@ -383,6 +409,7 @@ ul {
 
 .hero-sub {
   max-width: 34rem;
+  text-wrap: pretty;
   font-size: 18px;
   line-height: 1.7;
   color: var(--fg-2);
@@ -414,6 +441,7 @@ ul {
 .media--empty {
   display: grid;
   place-items: center;
+  background: transparent;
   border-style: dashed;
   border-color: var(--line-2);
   color: var(--fg-3);
