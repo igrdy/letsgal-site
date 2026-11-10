@@ -205,7 +205,7 @@ ul {
 }
 
 .page-bg.loaded {
-  opacity: .12;
+  opacity: .2;
 }
 
 body.light .page-bg {
@@ -213,7 +213,7 @@ body.light .page-bg {
 }
 
 body.light .page-bg.loaded {
-  opacity: .05;
+  opacity: .07;
 }
 
 /* ============================================================
@@ -731,6 +731,55 @@ section {
   color: var(--fg-2);
 }
 
+/* 名册补充与价格补充 */
+.team-note,
+.specs-note {
+  margin-top: var(--s4);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--fg-3);
+}
+
+.specs-note {
+  max-width: 64ch;
+}
+
+.join-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+}
+
+/* Toast：只在按钮还没有链接时用 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--s8);
+  z-index: 200;
+  max-width: calc(100% - var(--s8));
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r2);
+  border: 1px solid var(--line-2);
+  background: var(--ink-2);
+  color: var(--fg);
+  font-size: 13px;
+  text-align: center;
+  box-shadow: 0 16px 40px -20px rgba(0, 0, 0, .9);
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  transition: opacity var(--mid) var(--ease), transform var(--mid) var(--ease);
+  pointer-events: none;
+}
+
+body.light .toast {
+  box-shadow: 0 16px 32px -20px rgba(17, 24, 39, .3);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* ============================================================
    12. Footer
    ============================================================ */
@@ -765,6 +814,12 @@ section {
 .footer a:hover,
 .link-btn:hover {
   color: var(--fg);
+}
+
+.footer-ver {
+  margin-top: var(--s4);
+  font-size: 12px;
+  color: var(--fg-3);
 }
 
 /* ============================================================
@@ -928,29 +983,6 @@ body.sheet-open {
 }
 
 /* ============================================================
-   15. 进场：一次，短，8px
-   ============================================================ */
-.hero-copy > * {
-  animation: rise var(--slow) var(--ease) both;
-}
-
-.hero-copy > *:nth-child(2) { animation-delay: 40ms; }
-.hero-copy > *:nth-child(3) { animation-delay: 80ms; }
-.hero-copy > *:nth-child(4) { animation-delay: 120ms; }
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* ============================================================
    16. 响应式
    ============================================================ */
 @media (max-width: 960px) {
@@ -1092,8 +1124,4 @@ body.sheet-open {
     transition-duration: .01ms !important;
   }
 
-  .hero-copy > * {
-    opacity: 1;
-    transform: none;
-  }
 }

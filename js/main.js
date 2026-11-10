@@ -152,6 +152,29 @@
   }
 
   /* ============================================================
+     Toast：申请入口还没有链接时给个交代
+     ============================================================ */
+  var applyBtn = document.getElementById('applyBtn');
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+
+  function showToast(text) {
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add('show');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function () {
+      toast.classList.remove('show');
+    }, 2600);
+  }
+
+  if (applyBtn) {
+    applyBtn.addEventListener('click', function () {
+      showToast('申请表还没做完，请稍后再来。');
+    });
+  }
+
+  /* ============================================================
      成员资料卡
      ============================================================ */
   var sheet = document.getElementById('memberSheet');
