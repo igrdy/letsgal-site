@@ -35,6 +35,7 @@
      ============================================================ */
   var systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)');
   var themeToggle = document.getElementById('themeToggle');
+  var themeTimer = null;
 
   function isLight() {
     return document.body.classList.contains('light');
@@ -61,9 +62,15 @@
 
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
+      document.documentElement.classList.add('theming');
       document.body.classList.toggle('light');
       safeSet('letsgal-theme', isLight() ? 'light' : 'dark');
       syncThemeLabel();
+
+      window.clearTimeout(themeTimer);
+      themeTimer = window.setTimeout(function () {
+        document.documentElement.classList.remove('theming');
+      }, 320);
     });
   }
 
@@ -190,6 +197,7 @@
     var linkEl = document.getElementById('sheetLink');
     var closeBtn = document.getElementById('sheetClose');
     var lastFocus = null;
+    var closeTimer = null;
 
     function openSheet(person) {
       var name = person.getAttribute('data-name') || '';
@@ -220,16 +228,30 @@
       linkEl.href = person.getAttribute('href');
 
       lastFocus = document.activeElement;
+      window.clearTimeout(closeTimer);
       sheet.hidden = false;
       document.body.classList.add('sheet-open');
+
+      /* 下一帧再加 open，浏览器才会认这次过渡 */
+      window.requestAnimationFrame(function () {
+        sheet.classList.add('open');
+      });
+
       if (panel) panel.focus();
     }
 
     function closeSheet() {
       if (sheet.hidden) return;
-      sheet.hidden = true;
+
+      sheet.classList.remove('open');
       document.body.classList.remove('sheet-open');
       if (lastFocus && lastFocus.focus) lastFocus.focus();
+
+      /* 退场只有 180ms，比入场短；期间重新打开会被 clearTimeout 取消 */
+      window.clearTimeout(closeTimer);
+      closeTimer = window.setTimeout(function () {
+        sheet.hidden = true;
+      }, 200);
     }
 
     people.forEach(function (person) {
@@ -266,4 +288,44 @@
     });
   }
 
+  /* ============================================================
+     进场与翻页：首屏缓出进场，下面的文字块随滚动渐显渐隐
+     ============================================================ */
+  function markLoaded() {
+    document.body.classList.add('loaded');
+  }
+
+  if (document.readyState === 'complete') {
+    markLoaded();
+  } else {
+    window.addEventListener('load', markLoaded);
+  }
+
+  /* 图片迟迟不加载也不能把首屏文字卡住 */
+  window.setTimeout(markLoaded, 1200);
+
+  var revealEls = document.querySelectorAll(
+    '.head, .person, .clause, .specs > div, .specs-note, .team-note, ' +
+    '.work-gallery, .work-info, .join-copy, .join-actions'
+  );
+
+  if ('IntersectionObserver' in window && revealEls.length) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        /* 进场加 in，离场撤掉，方向由 CSS 的缓动区分：进 460ms 缓出，出 180ms 加速 */
+        entry.target.classList.toggle('in', entry.isIntersecting);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+
+    revealEls.forEach(function (el) {
+      var parent = el.parentElement;
+      var index = parent ? Array.prototype.indexOf.call(parent.children, el) : 0;
+      el.style.setProperty('--d', Math.min(index, 5) * 45 + 'ms');
+      revealObserver.observe(el);
+    });
+  } else {
+    revealEls.forEach(function (el) {
+      el.classList.add('in');
+    });
+  }
 })();

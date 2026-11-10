@@ -56,9 +56,14 @@
   --btn-hover: #ffffff;
 
   --ease: cubic-bezier(.22, 1, .36, 1);
+  /* 入场缓出、退场短促；全部用 transition 实现，任何时刻都能被下一帧打断 */
+  --ease-out: cubic-bezier(0, 0, .2, 1);
+  --ease-in: cubic-bezier(.4, 0, 1, 1);
   --fast: 150ms;
   --mid: 200ms;
   --slow: 400ms;
+  --t-enter: 460ms;
+  --t-exit: 180ms;
 
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
           "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
@@ -324,7 +329,12 @@ body.light .page-bg.loaded {
   white-space: nowrap;
   transition: background-color var(--fast) var(--ease),
               border-color var(--fast) var(--ease),
-              color var(--fast) var(--ease);
+              color var(--fast) var(--ease),
+              transform 120ms var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(.98);
 }
 
 .btn-primary {
@@ -390,7 +400,7 @@ body.light .page-bg.loaded {
   align-items: center;
 }
 
-.hero-visual {
+.hero-inner > .media {
   min-width: 0;
 }
 
@@ -446,6 +456,66 @@ body.light .page-bg.loaded {
   border-style: dashed;
   border-color: var(--line-2);
   color: var(--fg-3);
+}
+
+/* 首屏文字：缓出进场。没有 JS 时不加 html.motion，内容始终可见 */
+html.motion .hero-copy > * {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--t-enter) var(--ease-out),
+              transform var(--t-enter) var(--ease-out);
+}
+
+html.motion .hero-inner > .media {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--t-enter) var(--ease-out),
+              transform var(--t-enter) var(--ease-out);
+}
+
+html.motion body.loaded .hero-copy > *,
+html.motion body.loaded .hero-inner > .media {
+  opacity: 1;
+  transform: none;
+}
+
+html.motion body.loaded .hero-copy > *:nth-child(2) { transition-delay: 60ms; }
+html.motion body.loaded .hero-copy > *:nth-child(3) { transition-delay: 120ms; }
+html.motion body.loaded .hero-copy > *:nth-child(4) { transition-delay: 180ms; }
+html.motion body.loaded .hero-inner > .media { transition-delay: 100ms; }
+
+/* 翻页：文字块进入视口渐显上移，离开时更短更快地淡出 */
+html.motion .head,
+html.motion .person,
+html.motion .clause,
+html.motion .specs > div,
+html.motion .specs-note,
+html.motion .team-note,
+html.motion .work-gallery,
+html.motion .work-info,
+html.motion .join-copy,
+html.motion .join-actions {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--t-exit) var(--ease-in),
+              transform var(--t-exit) var(--ease-in);
+}
+
+html.motion .head.in,
+html.motion .person.in,
+html.motion .clause.in,
+html.motion .specs > div.in,
+html.motion .specs-note.in,
+html.motion .team-note.in,
+html.motion .work-gallery.in,
+html.motion .work-info.in,
+html.motion .join-copy.in,
+html.motion .join-actions.in {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--t-enter) var(--ease-out),
+              transform var(--t-enter) var(--ease-out);
+  transition-delay: var(--d, 0ms);
 }
 
 /* ============================================================
@@ -880,6 +950,13 @@ body.light .toast {
   position: absolute;
   inset: 0;
   background: rgba(5, 6, 10, .72);
+  opacity: 0;
+  transition: opacity var(--t-exit) var(--ease-in);
+}
+
+.sheet.open .sheet-scrim {
+  opacity: 1;
+  transition: opacity 300ms var(--ease-out);
 }
 
 body.light .sheet-scrim {
@@ -894,7 +971,17 @@ body.light .sheet-scrim {
   border: 1px solid var(--line-2);
   background: var(--ink-2);
   box-shadow: 0 32px 64px -28px rgba(0, 0, 0, .9);
-  animation: sheet-in var(--slow) var(--ease);
+  opacity: 0;
+  transform: translateY(10px) scale(.985);
+  transition: opacity var(--t-exit) var(--ease-in),
+              transform var(--t-exit) var(--ease-in);
+}
+
+.sheet.open .sheet-panel {
+  opacity: 1;
+  transform: none;
+  transition: opacity 340ms var(--ease-out),
+              transform 340ms var(--ease-out);
 }
 
 body.light .sheet-panel {
@@ -903,18 +990,6 @@ body.light .sheet-panel {
 
 .sheet-panel:focus {
   outline: none;
-}
-
-@keyframes sheet-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .sheet-head {
@@ -1004,17 +1079,30 @@ body.sheet-open {
     top: 64px;
     left: 0;
     right: 0;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     padding: var(--s3) var(--s6) var(--s6);
     background: var(--ink-1);
     border-bottom: 1px solid var(--line);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity var(--t-exit) var(--ease-in),
+                transform var(--t-exit) var(--ease-in),
+                visibility var(--t-exit);
   }
 
   .nav-links.open {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    transition: opacity 280ms var(--ease-out),
+                transform 280ms var(--ease-out),
+                visibility 280ms;
   }
 
   .nav-links > a {
@@ -1074,12 +1162,8 @@ body.sheet-open {
     padding-block: var(--s12);
   }
 
-  .hero-visual {
-  min-width: 0;
-}
-
-.hero-copy h1 {
-    font-size: 38px;
+  .hero-copy h1 {
+    font-size: 48px;
   }
 
   .work-info h3 {
@@ -1101,6 +1185,20 @@ body.sheet-open {
     border-radius: var(--r4) var(--r4) 0 0;
     padding-bottom: max(var(--s6), env(safe-area-inset-bottom));
   }
+}
+
+/* 切换主题时颜色交叉淡入，不要瞬间跳变 */
+html.theming body,
+html.theming .nav,
+html.theming .footer,
+html.theming .media,
+html.theming .toast,
+html.theming .sheet-panel,
+html.theming .person-avatar,
+html.theming .btn {
+  transition: background-color 280ms var(--ease-out),
+              border-color 280ms var(--ease-out),
+              color 280ms var(--ease-out);
 }
 
 /* ============================================================
@@ -1127,6 +1225,22 @@ body.sheet-open {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
+  }
+
+  html.motion .hero-copy > *,
+  html.motion .hero-inner > .media,
+  html.motion .head,
+  html.motion .person,
+  html.motion .clause,
+  html.motion .specs > div,
+  html.motion .specs-note,
+  html.motion .team-note,
+  html.motion .work-gallery,
+  html.motion .work-info,
+  html.motion .join-copy,
+  html.motion .join-actions {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
 }
