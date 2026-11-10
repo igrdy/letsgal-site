@@ -1,11 +1,29 @@
 #!/usr/bin/env bash
-# 把版本号写进页脚：ver <semver>-<构建号>
-# 构建号 = 本次提交的序号（提交总数），每次提交前跑一次即可
+# 打版本号：ver <版本> · push #<推送次数>
+#
+# 规则（默认每改一次 +0.01）：
+#   bash scripts/stamp-version.sh           # +0.01  日常修改
+#   bash scripts/stamp-version.sh --minor   # +0.1   改动量较大
+#   bash scripts/stamp-version.sh --major   # +1     全面重构 / 整页重做
+#
+# 推送次数每次 +1，对应远端的一次推送记录。
 set -e
 cd "$(dirname "$0")/.."
 
-SEMVER="${1:-0.0.1}"
-BUILD=$(( $(git rev-list --count HEAD) + 1 ))
+STATE="scripts/version.txt"
+[ -f "$STATE" ] || echo "0.28 28" > "$STATE"
+read -r VER PUSH < "$STATE"
 
-sed -i -E "s/ver [0-9]+\.[0-9]+\.[0-9]+-[0-9]+/ver ${SEMVER}-${BUILD}/" index.html
-echo "页脚版本号 -> ver ${SEMVER}-${BUILD}"
+case "${1:-}" in
+  --minor) STEP=0.1 ;;
+  --major) STEP=1 ;;
+  *)       STEP=0.01 ;;
+esac
+
+VER=$(awk -v v="$VER" -v s="$STEP" 'BEGIN{printf "%.2f", v + s}')
+PUSH=$((PUSH + 1))
+
+echo "$VER $PUSH" > "$STATE"
+sed -i -E "s/ver [0-9]+(\.[0-9]+)? · push #[0-9]+/ver ${VER} · push #${PUSH}/" index.html
+
+echo "页脚版本号 -> ver ${VER} · push #${PUSH}"
