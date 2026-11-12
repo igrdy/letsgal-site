@@ -239,7 +239,7 @@ body.light .page-bg.loaded {
   height: 64px;
   display: flex;
   align-items: center;
-  gap: var(--s8);
+  gap: var(--s6);
 }
 
 .brand {
@@ -261,10 +261,23 @@ body.light .page-bg.loaded {
 }
 
 .nav-links {
-  margin-left: auto;
   display: flex;
   align-items: center;
   gap: var(--s6);
+}
+
+/* 常驻顶栏的信件入口：不进折叠菜单，窄屏也看得见 */
+.nav-letter {
+  margin-left: auto;
+  flex: none;
+  white-space: nowrap;
+  font-size: 14px;
+  color: var(--fg-2);
+  transition: color var(--fast) var(--ease);
+}
+
+.nav-letter:hover {
+  color: var(--fg);
 }
 
 .nav-links > a {
@@ -288,7 +301,6 @@ body.light .page-bg.loaded {
 
 .nav-toggle {
   display: none;
-  margin-left: auto;
   width: 36px;
   height: 36px;
   flex-direction: column;
@@ -1187,6 +1199,16 @@ body.sheet-open {
     gap: var(--s6) var(--s4);
   }
 
+}
+
+@media (max-width: 380px) {
+  .nav-inner {
+    gap: var(--s3);
+  }
+
+  .nav-letter {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 560px) {
