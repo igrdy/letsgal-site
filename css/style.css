@@ -888,7 +888,7 @@ html.motion .about-note.in {
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -.01em;
-  color: var(--fg-2);
+  color: var(--fg);
   transition: color var(--mid) var(--ease);
 }
 
@@ -902,11 +902,11 @@ html.motion .about-note.in {
 }
 
 .misc-row:hover {
-  color: var(--fg);
+  color: var(--accent);
 }
 
 .misc-row:hover .icon {
-  color: var(--fg);
+  color: var(--accent);
   transform: translateX(4px);
 }
 
