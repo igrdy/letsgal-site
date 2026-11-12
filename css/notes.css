@@ -7,6 +7,11 @@
   max-width: 780px;
 }
 
+/* 信件页比手记窄一点，导航/正文/页脚统一到这条线 */
+.doc-narrow {
+  max-width: 700px;
+}
+
 /* 这一页字稀，底图比主页再淡一档，别让画抢了字 */
 body .page-bg.loaded {
   opacity: .12;
@@ -108,6 +113,85 @@ body.light .pending {
   line-height: 1.7;
   color: var(--fg-3);
   text-wrap: pretty;
+}
+
+/* ---------------- 信件 ---------------- */
+.letter {
+  max-width: 700px;
+  padding-block: var(--s20) var(--s16);
+}
+
+.letter h1 {
+  margin-bottom: var(--s10);
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -.02em;
+  text-align: center;
+}
+
+.letter p {
+  margin-bottom: var(--s4);
+  font-size: 16px;
+  line-height: 2;
+  color: var(--fg-2);
+  text-indent: 2em;
+  text-wrap: pretty;
+}
+
+.letter h2 {
+  margin-block: var(--s8) var(--s4);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--fg);
+}
+
+.letter-flat {
+  text-indent: 0;
+}
+
+.letter-cry {
+  margin-block: var(--s6);
+  font-size: 17px;
+  color: var(--fg);
+}
+
+.letter-salute {
+  margin-top: var(--s10);
+  color: var(--fg);
+}
+
+.letter-sign {
+  margin-top: var(--s5);
+  text-align: right;
+}
+
+.letter-sign p {
+  margin-bottom: var(--s2);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--fg-3);
+  text-indent: 0;
+}
+
+.letter-motto {
+  margin-top: var(--s4);
+  color: var(--fg-2);
+}
+
+html.motion .letter {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--t-exit) var(--ease-in),
+              transform var(--t-exit) var(--ease-in);
+}
+
+html.motion body.loaded .letter {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--t-enter) var(--ease-out),
+              transform var(--t-enter) var(--ease-out);
 }
 
 /* ---------------- 进场 ---------------- */

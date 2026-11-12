@@ -24,11 +24,11 @@ VER=$(awk -v v="$VER" -v s="$STEP" 'BEGIN{printf "%.2f", v + s}')
 echo "$VER" > "$STATE"
 
 # 先填占位，再对整份文件取哈希，最后把哈希写回去
-for f in index.html html/notes.html; do
+for f in index.html html/notes.html html/letter.html; do
   [ -f "$f" ] && sed -i -E "s/ver [0-9][^<]*/ver ${VER}-________/" "$f"
 done
-H=$(cat index.html html/notes.html | sha256sum | cut -c1-8)
-for f in index.html html/notes.html; do
+H=$(cat index.html html/notes.html html/letter.html | sha256sum | cut -c1-8)
+for f in index.html html/notes.html html/letter.html; do
   [ -f "$f" ] && sed -i -E "s/${VER}-________/${VER}-${H}/" "$f"
 done
 

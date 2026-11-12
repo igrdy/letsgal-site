@@ -285,7 +285,7 @@
 
   var revealEls = document.querySelectorAll(
     '.head, .person, .clause, .specs > div, .specs-note, .team-note, ' +
-    '.about-copy, .about-visual, .note, ' +
+    '.about-copy, .about-note, .note, ' +
     '.work-gallery, .work-info'
   );
 

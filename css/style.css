@@ -560,7 +560,7 @@ section {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
   gap: var(--s12);
-  align-items: start;
+  align-items: center;
 }
 
 .about-copy h2 {
@@ -615,24 +615,30 @@ section {
   background: var(--fg-3);
 }
 
-.about-visual {
-  margin: 0;
-  overflow: hidden;
+.about-note {
+  padding: var(--s6);
   border: 1px solid var(--line);
   border-radius: var(--r3);
   background: var(--ink-2);
 }
 
-.about-visual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+.about-note h3 {
+  margin-bottom: var(--s2);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.about-note p {
+  margin-bottom: var(--s5);
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--fg-2);
+  text-wrap: pretty;
 }
 
 html.motion .about-copy,
-html.motion .about-visual {
+html.motion .about-note {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity var(--t-exit) var(--ease-in),
@@ -640,7 +646,7 @@ html.motion .about-visual {
 }
 
 html.motion .about-copy.in,
-html.motion .about-visual.in {
+html.motion .about-note.in {
   opacity: 1;
   transform: none;
   transition: opacity var(--t-enter) var(--ease-out),
@@ -1179,10 +1185,6 @@ body.sheet-open {
     gap: var(--s8);
   }
 
-  .about-visual {
-    max-width: 420px;
-  }
-
   .roster {
     grid-template-columns: 1fr;
   }
@@ -1279,7 +1281,7 @@ html.theming .btn {
   html.motion .hero-copy > *,
   html.motion .hero-inner > .media,
   html.motion .about-copy,
-  html.motion .about-visual,
+  html.motion .about-note,
   html.motion .head,
   html.motion .person,
   html.motion .clause,
