@@ -392,18 +392,58 @@ body.light .page-bg.loaded {
 /* ============================================================
    5. Hero —— 左文右图，不是居中堆叠
    ============================================================ */
+/* 首屏整屏：进来只看这一屏，内容居中；往下翻才是往常的栏目流 */
 .hero {
-  padding-block: var(--s24) var(--s16);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
+  padding-block: var(--s16);
 }
 
 .hero-copy {
   max-width: 700px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* 居中后底部那个「向下」提示 */
+.hero-cue {
+  position: absolute;
+  left: 50%;
+  bottom: var(--s6);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--fg-3);
+  transition: color var(--fast) var(--ease), transform var(--fast) var(--ease);
+}
+
+.hero-cue .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.hero-cue:hover {
+  color: var(--fg-2);
+  transform: translate(-50%, 2px);
+}
+
+@media (max-height: 620px) {
+  .hero-cue {
+    display: none;
+  }
 }
 
 /* 标题行：主视觉小图 + 三个大字 */
 .hero-title {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--s5);
   margin-block: var(--s4) var(--s6);
 }
@@ -432,8 +472,9 @@ body.light .page-bg.loaded {
 }
 
 .hero-sub {
-  max-width: 34rem;
-  text-wrap: pretty;
+  max-width: 44rem;
+  margin-inline: auto;
+  text-wrap: balance;
   font-size: 18px;
   line-height: 1.7;
   color: var(--fg-2);
@@ -443,6 +484,7 @@ body.light .page-bg.loaded {
 .actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--s3);
 }
 
