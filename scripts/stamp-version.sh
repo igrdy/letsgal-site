@@ -10,6 +10,16 @@
 set -e
 cd "$(dirname "$0")/.."
 
+# 沙箱升级会让同一条命令执行两次，3 秒内重复调用直接跳过
+LOCK="${TMPDIR:-/tmp}/letsgal-stamp.lock"
+NOW=$(date +%s)
+LAST=$(cat "$LOCK" 2>/dev/null || echo 0)
+if [ $((NOW - LAST)) -lt 3 ]; then
+  echo "刚刚已打过号，跳过"
+  exit 0
+fi
+echo "$NOW" > "$LOCK"
+
 STATE="scripts/version.txt"
 [ -f "$STATE" ] || echo "0.29" > "$STATE"
 VER=$(head -n1 "$STATE" | awk '{print $1}')
@@ -24,11 +34,11 @@ VER=$(awk -v v="$VER" -v s="$STEP" 'BEGIN{printf "%.2f", v + s}')
 echo "$VER" > "$STATE"
 
 # 先填占位，再对整份文件取哈希，最后把哈希写回去
-for f in index.html html/notes.html html/letter.html; do
+for f in index.html html/misc.html html/letter.html; do
   [ -f "$f" ] && sed -i -E "s/ver [0-9][^<]*/ver ${VER}-________/" "$f"
 done
-H=$(cat index.html html/notes.html html/letter.html | sha256sum | cut -c1-8)
-for f in index.html html/notes.html html/letter.html; do
+H=$(cat index.html html/misc.html html/letter.html | sha256sum | cut -c1-8)
+for f in index.html html/misc.html html/letter.html; do
   [ -f "$f" ] && sed -i -E "s/${VER}-________/${VER}-${H}/" "$f"
 done
 
