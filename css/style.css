@@ -198,27 +198,30 @@ ul {
 .page-bg {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  filter: brightness(.45) saturate(.9) contrast(1.05) blur(3px);
-  transform: scale(1.03);
+  /* 只压亮度与饱和度，不加 blur / scale，避免 iOS 上 fixed 图层出问题 */
+  filter: brightness(.6) saturate(.9);
   opacity: 0;
   transition: opacity 1.2s var(--ease);
   pointer-events: none;
 }
 
 .page-bg.loaded {
-  opacity: .38;
+  opacity: .3;
 }
 
-body.light .page-bg {
-  filter: brightness(1.25) saturate(.7) blur(3px);
+/* 手机屏幕小、文字块窄，底图可以更明显一点 */
+@media (max-width: 960px) {
+  .page-bg.loaded {
+    opacity: .4;
+  }
 }
 
 body.light .page-bg.loaded {
-  opacity: .07;
+  opacity: .1;
 }
 
 /* ============================================================
