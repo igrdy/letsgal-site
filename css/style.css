@@ -875,6 +875,42 @@ html.motion .about-note.in {
 }
 
 /* ============================================================
+   杂项入口：一整行，坐在页脚上方
+   ============================================================ */
+.misc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s6);
+  padding-block: var(--s8);
+  border-top: 1px solid var(--line);
+  font-size: clamp(21px, 2.6vw, 28px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -.01em;
+  color: var(--fg-2);
+  transition: color var(--mid) var(--ease);
+}
+
+.misc-row .icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--fg-3);
+  transition: color var(--mid) var(--ease),
+              transform var(--mid) var(--ease);
+}
+
+.misc-row:hover {
+  color: var(--fg);
+}
+
+.misc-row:hover .icon {
+  color: var(--fg);
+  transform: translateX(4px);
+}
+
+/* ============================================================
    12. Footer
    ============================================================ */
 .footer {
