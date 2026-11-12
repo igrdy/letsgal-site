@@ -492,9 +492,7 @@ html.motion .specs > div,
 html.motion .specs-note,
 html.motion .team-note,
 html.motion .work-gallery,
-html.motion .work-info,
-html.motion .join-copy,
-html.motion .join-actions {
+html.motion .work-info {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity var(--t-exit) var(--ease-in),
@@ -508,9 +506,7 @@ html.motion .specs > div.in,
 html.motion .specs-note.in,
 html.motion .team-note.in,
 html.motion .work-gallery.in,
-html.motion .work-info.in,
-html.motion .join-copy.in,
-html.motion .join-actions.in {
+html.motion .work-info.in {
   opacity: 1;
   transform: none;
   transition: opacity var(--t-enter) var(--ease-out),
@@ -871,31 +867,6 @@ html.motion .about-visual.in {
   color: var(--fg-3);
 }
 
-/* ============================================================
-   11. 加入
-   ============================================================ */
-.join {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--s8);
-}
-
-.join h2 {
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -.02em;
-}
-
-.join p {
-  max-width: 46ch;
-  margin-top: var(--s3);
-  font-size: 15px;
-  color: var(--fg-2);
-}
-
 /* 名册补充与价格补充 */
 .team-note,
 .specs-note {
@@ -909,45 +880,6 @@ html.motion .about-visual.in {
   max-width: 68ch;
   margin-top: var(--s5);
   text-wrap: pretty;
-}
-
-.join-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s3);
-}
-
-/* Toast：只在按钮还没有链接时用 */
-.toast {
-  position: fixed;
-  left: 50%;
-  top: calc(64px + var(--s3));
-  z-index: 200;
-  max-width: calc(100% - var(--s8));
-  padding: var(--s3) var(--s4);
-  border-radius: var(--r2);
-  border: 1px solid rgba(150, 40, 40, .22);
-  background: #f3dcdc;
-  color: #4a1c1c;
-  font-size: 13px;
-  text-align: center;
-  box-shadow: 0 16px 40px -20px rgba(0, 0, 0, .9);
-  opacity: 0;
-  transform: translate(-50%, -10px);
-  transition: opacity var(--mid) var(--ease), transform var(--mid) var(--ease);
-  pointer-events: none;
-}
-
-body.light .toast {
-  background: #fbeaea;
-  border-color: rgba(190, 90, 90, .28);
-  color: #7a2020;
-  box-shadow: 0 16px 32px -20px rgba(17, 24, 39, .3);
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
 }
 
 /* ============================================================
@@ -1274,9 +1206,6 @@ body.sheet-open {
     gap: var(--s6) var(--s4);
   }
 
-  .join {
-    align-items: flex-start;
-  }
 }
 
 @media (max-width: 560px) {
@@ -1292,8 +1221,7 @@ body.sheet-open {
     font-size: 32px;
   }
 
-  .head h2,
-  .join h2 {
+  .head h2 {
     font-size: 26px;
   }
 
@@ -1314,7 +1242,6 @@ html.theming body,
 html.theming .nav,
 html.theming .footer,
 html.theming .media,
-html.theming .toast,
 html.theming .sheet-panel,
 html.theming .person-avatar,
 html.theming .btn {
@@ -1360,9 +1287,7 @@ html.theming .btn {
   html.motion .specs-note,
   html.motion .team-note,
   html.motion .work-gallery,
-  html.motion .work-info,
-  html.motion .join-copy,
-  html.motion .join-actions {
+  html.motion .work-info {
     opacity: 1 !important;
     transform: none !important;
   }
