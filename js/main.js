@@ -17,7 +17,10 @@
      ============================================================ */
   var pageBg = document.getElementById('pageBg');
 
-  if (pageBg) {
+  /* 手机端不加载底图：省流量，也避免小屏上画面糊成一片 */
+  var desktopViewport = window.matchMedia('(min-width: 961px)').matches;
+
+  if (pageBg && desktopViewport) {
     /* 子页面（html/）用 body[data-assets] 指回上层目录 */
     var assets = document.body.getAttribute('data-assets') || 'images/';
     var plate = Math.floor(Math.random() * 5) + 1;
