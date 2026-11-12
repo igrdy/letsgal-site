@@ -33,9 +33,8 @@
   }
 
   /* ============================================================
-     主题：跟随系统，手动切换后记住
+     主题：默认深色，只有手动切到浅色才记住（不再跟随系统）
      ============================================================ */
-  var systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)');
   var themeToggle = document.getElementById('themeToggle');
   var themeTimer = null;
 
@@ -48,16 +47,8 @@
     themeToggle.textContent = isLight() ? '深色' : '浅色';
   }
 
-  function applySystemTheme() {
-    if (safeGet('letsgal-theme')) return;
-    document.body.classList.toggle('light', systemPrefersLight.matches);
-    syncThemeLabel();
-  }
-
   if (safeGet('letsgal-theme') === 'light') {
     document.body.classList.add('light');
-  } else {
-    applySystemTheme();
   }
 
   syncThemeLabel();
@@ -74,10 +65,6 @@
         document.documentElement.classList.remove('theming');
       }, 320);
     });
-  }
-
-  if (systemPrefersLight.addEventListener) {
-    systemPrefersLight.addEventListener('change', applySystemTheme);
   }
 
   /* ============================================================

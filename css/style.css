@@ -203,25 +203,25 @@ ul {
   background-size: cover;
   background-repeat: no-repeat;
   /* 只压亮度与饱和度，不加 blur / scale，避免 iOS 上 fixed 图层出问题 */
-  filter: brightness(.6) saturate(.9);
+  filter: brightness(.68) saturate(.95);
   opacity: 0;
   transition: opacity 1.2s var(--ease);
   pointer-events: none;
 }
 
 .page-bg.loaded {
-  opacity: .3;
+  opacity: .46;
 }
 
 /* 手机屏幕小、文字块窄，底图可以更明显一点 */
 @media (max-width: 960px) {
   .page-bg.loaded {
-    opacity: .4;
+    opacity: .56;
   }
 }
 
 body.light .page-bg.loaded {
-  opacity: .1;
+  opacity: .14;
 }
 
 /* ============================================================
@@ -1351,9 +1351,9 @@ html.theming .btn {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(11, 13, 20, .26);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  backdrop-filter: blur(10px) saturate(120%);
+  background: rgba(11, 13, 20, .2);
+  -webkit-backdrop-filter: blur(9px) saturate(120%);
+  backdrop-filter: blur(9px) saturate(120%);
   pointer-events: none;
 }
 
