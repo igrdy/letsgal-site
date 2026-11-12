@@ -1261,6 +1261,7 @@ html.theming .btn {
    毛玻璃：底图只在桌面端加载，所以这层也只在桌面端有意义
    ============================================================ */
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* 大面积面板：模糊给足，透出的画面才像磨砂 */
   .nav {
     background: rgba(11, 13, 20, .62);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -1279,16 +1280,66 @@ html.theming .btn {
     backdrop-filter: blur(22px) saturate(140%);
   }
 
-  body.light .nav {
-    background: rgba(245, 247, 250, .8);
+  /* 可交互的小件：轻轻一层就够，模糊半径小一点免得糊边 */
+  .btn-quiet {
+    background: rgba(238, 240, 245, .06);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
   }
 
-  body.light .about-note {
-    background: rgba(255, 255, 255, .64);
+  .to-top,
+  .nav-toggle,
+  .sheet-close {
+    background: rgba(32, 37, 51, .48);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    backdrop-filter: blur(12px) saturate(120%);
   }
 
-  body.light .sheet-panel {
-    background: rgba(255, 255, 255, .8);
+  /* 名册行：hover 时浮起一层玻璃，而不是整行涂色 */
+  .person {
+    transition: background-color var(--fast) var(--ease),
+                backdrop-filter var(--fast) var(--ease);
+  }
+
+  .person:hover {
+    background: rgba(32, 37, 51, .34);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  /* 图片位与作品图框 */
+  .media--empty {
+    background: rgba(32, 37, 51, .3);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  /* 浅色主题同步提亮 */
+  body.light .nav { background: rgba(245, 247, 250, .8); }
+  body.light .about-note { background: rgba(255, 255, 255, .64); }
+  body.light .sheet-panel { background: rgba(255, 255, 255, .8); }
+  body.light .btn-quiet { background: rgba(17, 24, 39, .04); }
+  body.light .to-top,
+  body.light .nav-toggle,
+  body.light .sheet-close { background: rgba(255, 255, 255, .7); }
+  body.light .person:hover { background: rgba(255, 255, 255, .55); }
+  body.light .media--empty { background: rgba(255, 255, 255, .5); }
+}
+
+/* 连续曲率：支持 corner-shape 的浏览器把圆角换成超椭圆，过渡更顺 */
+@supports (corner-shape: squircle) {
+  .btn,
+  .brand-mark,
+  .hero-mark,
+  .nav-toggle,
+  .media,
+  .about-note,
+  .person-avatar,
+  .sheet-panel,
+  .sheet-close,
+  .to-top,
+  .skip {
+    corner-shape: squircle;
   }
 }
 
