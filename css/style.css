@@ -390,7 +390,7 @@ body.light .page-bg.loaded {
 }
 
 /* ============================================================
-   5. Hero —— 左文右图，不是居中堆叠
+   5. Hero —— 整屏开场，内容居中
    ============================================================ */
 /* 首屏整屏：进来只看这一屏，内容居中；往下翻才是往常的栏目流 */
 .hero {
@@ -535,9 +535,7 @@ html.motion .person,
 html.motion .clause,
 html.motion .specs > div,
 html.motion .specs-note,
-html.motion .team-note,
-html.motion .work-gallery,
-html.motion .work-info {
+html.motion .team-note {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity var(--t-exit) var(--ease-in),
@@ -549,9 +547,7 @@ html.motion .person.in,
 html.motion .clause.in,
 html.motion .specs > div.in,
 html.motion .specs-note.in,
-html.motion .team-note.in,
-html.motion .work-gallery.in,
-html.motion .work-info.in {
+html.motion .team-note.in {
   opacity: 1;
   transform: none;
   transition: opacity var(--t-enter) var(--ease-out),
@@ -800,61 +796,6 @@ html.motion .about-note.in {
 .person:hover .person-arrow {
   color: var(--accent);
   transform: translateX(2px);
-}
-
-/* ============================================================
-   9. 作品
-   ============================================================ */
-.work {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
-  gap: var(--s12);
-  align-items: start;
-}
-
-.work-info h3 {
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -.02em;
-}
-
-.work-jp {
-  color: var(--fg-3);
-  margin-block: var(--s2) var(--s4);
-}
-
-.work-text {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--fg-2);
-  margin-bottom: var(--s6);
-}
-
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s3) var(--s6);
-  padding-top: var(--s4);
-  margin-bottom: var(--s6);
-  border-top: 1px solid var(--line);
-}
-
-.facts > div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s3);
-  font-size: 13px;
-}
-
-.facts dt {
-  color: var(--fg-3);
-}
-
-.facts dd {
-  color: var(--fg);
-  font-variant-numeric: tabular-nums;
 }
 
 /* ============================================================
@@ -1243,11 +1184,6 @@ body.sheet-open {
     grid-column: auto;
   }
 
-  .work {
-    grid-template-columns: 1fr;
-    gap: var(--s8);
-  }
-
   .clauses {
     grid-template-columns: 1fr;
     gap: var(--s6);
@@ -1267,10 +1203,6 @@ body.sheet-open {
 
   .hero-copy h1 {
     font-size: 48px;
-  }
-
-  .work-info h3 {
-    font-size: 32px;
   }
 
   .head h2 {
@@ -1437,9 +1369,7 @@ body.light .page-frost {
   html.motion .clause,
   html.motion .specs > div,
   html.motion .specs-note,
-  html.motion .team-note,
-  html.motion .work-gallery,
-  html.motion .work-info {
+  html.motion .team-note {
     opacity: 1 !important;
     transform: none !important;
   }

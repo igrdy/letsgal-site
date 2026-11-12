@@ -284,8 +284,7 @@
 
   var revealEls = document.querySelectorAll(
     '.head, .person, .clause, .specs > div, .specs-note, .team-note, ' +
-    '.about-copy, .about-note, .shot, ' +
-    '.work-gallery, .work-info'
+    '.about-copy, .about-note, .shot'
   );
 
   if ('IntersectionObserver' in window) {
