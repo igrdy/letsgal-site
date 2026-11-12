@@ -18,8 +18,10 @@
   var pageBg = document.getElementById('pageBg');
 
   if (pageBg) {
+    /* 子页面（html/）用 body[data-assets] 指回上层目录 */
+    var assets = document.body.getAttribute('data-assets') || 'images/';
     var plate = Math.floor(Math.random() * 5) + 1;
-    var url = 'images/plate-' + plate + '.webp';
+    var url = assets + 'plate-' + plate + '.webp';
     var img = new Image();
 
     img.onload = function () {
@@ -306,6 +308,7 @@
 
   var revealEls = document.querySelectorAll(
     '.head, .person, .clause, .specs > div, .specs-note, .team-note, ' +
+    '.about-copy, .about-visual, .note, ' +
     '.work-gallery, .work-info, .join-copy, .join-actions'
   );
 

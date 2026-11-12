@@ -558,6 +558,101 @@ section {
 }
 
 /* ============================================================
+   简介
+   ============================================================ */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+  gap: var(--s12);
+  align-items: start;
+}
+
+.about-copy h2 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  margin-bottom: var(--s5);
+}
+
+.about-lead {
+  font-size: 20px;
+  line-height: 1.75;
+  letter-spacing: 0;
+  color: var(--fg);
+  margin-bottom: var(--s4);
+  text-wrap: pretty;
+}
+
+.about-copy p {
+  max-width: 42em;
+  margin-bottom: var(--s4);
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+.about-questions {
+  display: grid;
+  gap: var(--s2);
+  margin-top: var(--s6);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line);
+}
+
+.about-questions li {
+  position: relative;
+  padding-left: var(--s5);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--fg-2);
+}
+
+.about-questions li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .8em;
+  width: 8px;
+  height: 1px;
+  background: var(--fg-3);
+}
+
+.about-visual {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r3);
+  background: var(--ink-2);
+}
+
+.about-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+html.motion .about-copy,
+html.motion .about-visual {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--t-exit) var(--ease-in),
+              transform var(--t-exit) var(--ease-in);
+}
+
+html.motion .about-copy.in,
+html.motion .about-visual.in {
+  opacity: 1;
+  transform: none;
+  transition: opacity var(--t-enter) var(--ease-out),
+              transform var(--t-enter) var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+
+/* ============================================================
    8. 制作组 —— 名录，不是十个一样的卡片
    ============================================================ */
 .roster {
@@ -879,6 +974,24 @@ body.light .toast {
   gap: var(--s5);
 }
 
+.footer-doc {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: 12px;
+  color: var(--fg-2);
+  transition: color var(--fast) var(--ease);
+}
+
+.footer-doc .icon {
+  width: 14px;
+  height: 14px;
+}
+
+.footer-doc:hover {
+  color: var(--fg);
+}
+
 .footer a,
 .link-btn {
   font-size: 12px;
@@ -1129,6 +1242,15 @@ body.sheet-open {
     font-size: 16px;
   }
 
+  .about {
+    grid-template-columns: 1fr;
+    gap: var(--s8);
+  }
+
+  .about-visual {
+    max-width: 420px;
+  }
+
   .roster {
     grid-template-columns: 1fr;
   }
@@ -1229,6 +1351,8 @@ html.theming .btn {
 
   html.motion .hero-copy > *,
   html.motion .hero-inner > .media,
+  html.motion .about-copy,
+  html.motion .about-visual,
   html.motion .head,
   html.motion .person,
   html.motion .clause,
