@@ -393,15 +393,25 @@ body.light .page-bg.loaded {
   padding-block: var(--s24) var(--s16);
 }
 
-.hero-inner {
-  display: grid;
-  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-  gap: var(--s16);
-  align-items: center;
+.hero-copy {
+  max-width: 700px;
 }
 
-.hero-inner > .media {
-  min-width: 0;
+/* 标题行：主视觉小图 + 三个大字 */
+.hero-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+  margin-block: var(--s4) var(--s6);
+}
+
+.hero-mark {
+  width: 76px;
+  height: 76px;
+  flex: none;
+  border-radius: var(--r3);
+  border: 1px solid var(--line-2);
+  object-fit: cover;
 }
 
 .hero-copy h1 {
@@ -409,7 +419,7 @@ body.light .page-bg.loaded {
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -.03em;
-  margin-block: var(--s4) var(--s6);
+  margin: 0;
 }
 
 .meta {
@@ -466,15 +476,7 @@ html.motion .hero-copy > * {
               transform var(--t-enter) var(--ease-out);
 }
 
-html.motion .hero-inner > .media {
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity var(--t-enter) var(--ease-out),
-              transform var(--t-enter) var(--ease-out);
-}
-
-html.motion body.loaded .hero-copy > *,
-html.motion body.loaded .hero-inner > .media {
+html.motion body.loaded .hero-copy > * {
   opacity: 1;
   transform: none;
 }
@@ -482,8 +484,6 @@ html.motion body.loaded .hero-inner > .media {
 html.motion body.loaded .hero-copy > *:nth-child(2) { transition-delay: 60ms; }
 html.motion body.loaded .hero-copy > *:nth-child(3) { transition-delay: 120ms; }
 html.motion body.loaded .hero-copy > *:nth-child(4) { transition-delay: 180ms; }
-html.motion body.loaded .hero-inner > .media { transition-delay: 100ms; }
-
 /* 翻页：文字块进入视口渐显上移，离开时更短更快地淡出 */
 html.motion .head,
 html.motion .person,
@@ -1171,9 +1171,14 @@ body.sheet-open {
     padding-block: var(--s16) var(--s12);
   }
 
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: var(--s10);
+  .hero-title {
+    gap: var(--s4);
+    margin-block: var(--s3) var(--s5);
+  }
+
+  .hero-mark {
+    width: 56px;
+    height: 56px;
   }
 
   .hero-sub {
@@ -1279,7 +1284,6 @@ html.theming .btn {
   }
 
   html.motion .hero-copy > *,
-  html.motion .hero-inner > .media,
   html.motion .about-copy,
   html.motion .about-note,
   html.motion .head,

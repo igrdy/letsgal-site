@@ -363,7 +363,15 @@
         fig.appendChild(cap);
         fig.appendChild(box);
         gallery.appendChild(fig);
-        reveal(fig, i);
+
+        /* 卡片刚插入时高度还是 0，观察器会判成不可见并一直不触发，
+           所以这里直接错峰淡入，不走观察器 */
+        (function (el, delay) {
+          el.style.setProperty('--d', Math.min(delay, 5) * 45 + 'ms');
+          window.requestAnimationFrame(function () {
+            el.classList.add('in');
+          });
+        }(fig, i));
       });
     }
   }

@@ -10,11 +10,11 @@
 set -e
 cd "$(dirname "$0")/.."
 
-# 沙箱升级会让同一条命令执行两次，3 秒内重复调用直接跳过
+# 沙箱升级会把整条命令重跑一遍，60 秒内重复调用直接跳过
 LOCK="scripts/.stamp-lock"
 NOW=$(date +%s)
 LAST=$(cat "$LOCK" 2>/dev/null || echo 0)
-if [ $((NOW - LAST)) -lt 3 ]; then
+if [ $((NOW - LAST)) -lt 60 ]; then
   echo "刚刚已打过号，跳过"
   exit 0
 fi
