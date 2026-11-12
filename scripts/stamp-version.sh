@@ -11,7 +11,7 @@ set -e
 cd "$(dirname "$0")/.."
 
 # 沙箱升级会让同一条命令执行两次，3 秒内重复调用直接跳过
-LOCK="${TMPDIR:-/tmp}/letsgal-stamp.lock"
+LOCK="scripts/.stamp-lock"
 NOW=$(date +%s)
 LAST=$(cat "$LOCK" 2>/dev/null || echo 0)
 if [ $((NOW - LAST)) -lt 3 ]; then

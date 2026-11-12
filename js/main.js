@@ -283,29 +283,88 @@
   /* 图片迟迟不加载也不能把首屏文字卡住 */
   window.setTimeout(markLoaded, 1200);
 
+  var revealObserver = null;
+
+  function reveal(el, index) {
+    el.style.setProperty('--d', Math.min(index || 0, 5) * 45 + 'ms');
+
+    if (revealObserver) {
+      revealObserver.observe(el);
+    } else {
+      el.classList.add('in');
+    }
+  }
+
   var revealEls = document.querySelectorAll(
     '.head, .person, .clause, .specs > div, .specs-note, .team-note, ' +
     '.about-copy, .about-note, .shot, ' +
     '.work-gallery, .work-info'
   );
 
-  if ('IntersectionObserver' in window && revealEls.length) {
-    var revealObserver = new IntersectionObserver(function (entries) {
+  if ('IntersectionObserver' in window) {
+    revealObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         /* 进场加 in，离场撤掉，方向由 CSS 的缓动区分：进 460ms 缓出，出 180ms 加速 */
         entry.target.classList.toggle('in', entry.isIntersecting);
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
 
-    revealEls.forEach(function (el) {
+    revealEls.forEach(function (el, i) {
       var parent = el.parentElement;
-      var index = parent ? Array.prototype.indexOf.call(parent.children, el) : 0;
-      el.style.setProperty('--d', Math.min(index, 5) * 45 + 'ms');
-      revealObserver.observe(el);
+      var index = parent ? Array.prototype.indexOf.call(parent.children, el) : i;
+      reveal(el, index);
     });
   } else {
     revealEls.forEach(function (el) {
       el.classList.add('in');
     });
+  }
+
+  /* ============================================================
+     杂项图片墙：按 images/misc/manifest.js 生成，有几张图就几格
+     ============================================================ */
+  var gallery = document.getElementById('miscGallery');
+  var miscItems = window.MISC_ITEMS || [];
+
+  if (gallery) {
+    if (!miscItems.length) {
+      var empty = document.createElement('p');
+      empty.className = 'gallery-empty';
+      empty.textContent = '还没有图片。';
+      gallery.appendChild(empty);
+    } else {
+      var assets = document.body.getAttribute('data-assets') || 'images/';
+
+      miscItems.forEach(function (item, i) {
+        var fig = document.createElement('figure');
+        fig.className = 'shot';
+
+        var cap = document.createElement('figcaption');
+        cap.className = 'shot-name mono';
+        cap.textContent = item.title || item.file;
+
+        var box = document.createElement('div');
+        box.className = 'media';
+
+        var img = document.createElement('img');
+        img.src = assets + 'misc/' + item.file;
+        img.alt = item.title || item.file;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+
+        /* 图小的时候看不清表格，点开看原图 */
+        var link = document.createElement('a');
+        link.href = assets + 'misc/' + item.file;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.appendChild(img);
+
+        box.appendChild(link);
+        fig.appendChild(cap);
+        fig.appendChild(box);
+        gallery.appendChild(fig);
+        reveal(fig, i);
+      });
+    }
   }
 })();

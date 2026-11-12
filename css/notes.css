@@ -65,6 +65,13 @@ body.light .page-bg.loaded {
   min-width: 0;
 }
 
+.gallery-empty {
+  grid-column: 1 / -1;
+  padding-block: var(--s12);
+  font-size: 13px;
+  color: var(--fg-3);
+}
+
 .shot-name {
   display: block;
   margin-bottom: var(--s2);
